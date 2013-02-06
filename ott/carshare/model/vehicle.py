@@ -32,7 +32,7 @@ class Vehicle(Base):
             same place as an earlier update, update the 
             NOTE: the position add/update needs to be committed to the db by the caller of this method 
         '''
-        from ott.model.carshare.position import Position
+        from ott.carshare.model.position import Position
 
         # step 1: get position object from db ...criteria is to find last position 
         #          update within an hour, and the car hasn't moved lat,lon

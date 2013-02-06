@@ -44,8 +44,9 @@ class ZipcarPodsAndVehicles():
         session = db.get_session()
 
         # step 1: remove old stuff....
-        db.engine.execute(ZipcarPod.__table__.delete())
+        session.query(ZipcarPod).delete()
         zlist = session.query(ZipcarVehicle).all()
+        # note: looping through and calling session.delete(z) is the only way I could get SQLAlchemy to delete the FK relational entry to position table.
         for z in zlist:
             session.delete(z)
         session.flush()
