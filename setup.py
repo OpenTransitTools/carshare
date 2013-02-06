@@ -2,13 +2,12 @@ from setuptools import setup, find_packages
 import sys
 
 required_eggs = [
-    'gtfsdb',
     'simplejson',
-    'oauth2',
     'geoalchemy',
 ]
 
-# NOTE: also required is a db driver ... on windows, precompiled drivers are common.  buildout.cfg allows psycopg2 and oracle drivers installed locally.
+# NOTE: also required is a db driver ... on windows, precompiled drivers are common.  
+#       buildout.cfg allows psycopg2 and oracle drivers installed locally.
 #       http://www.stickpeople.com/projects/python/win-psycopg/
 
 #
@@ -27,10 +26,10 @@ dev_extras = (
 )
 
 setup(
-    name='ott.controller',
+    name='ott.carshare',
     version='0.1.0',
-    description='Open Transit Tools - Web API / Controller',
-    url='https://github.com/OpenTransitTools/controller',
+    description='Open Transit Tools - Carshare db loader and json web services',
+    url='https://github.com/OpenTransitTools/carshare',
     namespace_packages=('ott',),
     packages=find_packages(),
     include_package_data=True,
