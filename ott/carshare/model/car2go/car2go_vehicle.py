@@ -1,7 +1,7 @@
 import datetime
 from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, ForeignKey
 
-from ott.model.carshare.vehicle import Vehicle
+from ott.carshare.model.vehicle import Vehicle
 
 class Car2GoVehicle(Vehicle):
     identity = 'car2go'

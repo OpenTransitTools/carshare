@@ -2,9 +2,9 @@ import json
 import urllib
 import datetime
 
-from ott.model.carshare.vehicle import Vehicle
-from ott.model.carshare.car2go.car2go_vehicle import Car2GoVehicle
-from ott.model.carshare.position import Position
+from ott.carshare.model.vehicle import Vehicle
+from ott.carshare.model.car2go.car2go_vehicle import Car2GoVehicle
+from ott.carshare.model.position import Position
 
 
 # car2go API: https://code.google.com/p/car2go/wiki/index_v2_1

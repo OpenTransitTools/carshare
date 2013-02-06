@@ -3,10 +3,10 @@ import urllib
 import datetime
 import traceback
 
-from ott.model.carshare.position import Position
-from ott.model.carshare.vehicle import Vehicle
-from ott.model.carshare.zipcar.zipcar_vehicle import ZipcarPod
-from ott.model.carshare.zipcar.zipcar_vehicle import ZipcarVehicle
+from ott.carshare.model.position import Position
+from ott.carshare.model.vehicle import Vehicle
+from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarPod
+from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
 # PODs: /api/2.0/locations.json?lat=45.5&long=-122.5&lat_delta=1.0&lng_delta=1.0
 # VEHICLE LIST: /api/2.0/locations/89042307/vehicles.json

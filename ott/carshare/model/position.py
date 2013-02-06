@@ -5,8 +5,8 @@ from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, Foreig
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relation, backref
 
-from ott.model.base import Base
-from ott.model.carshare.vehicle import Vehicle
+from ott.carshare.model.base import Base
+from ott.carshare.model.vehicle import Vehicle
 
 class Position(Base):
     ''' holds a history of the coordinates of a vehicle...

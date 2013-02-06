@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from ott.model.base import Base
+from ott.carshare.model.base import Base
 
 import logging
 logging.basicConfig()

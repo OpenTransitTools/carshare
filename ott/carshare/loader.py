@@ -1,14 +1,14 @@
 import argparse
 import os
 
-from ott.model.database import Database
-from ott.model.carshare.position import Position
-from ott.model.carshare.car2go.car2go_vehicle import Car2GoVehicle
-from ott.model.carshare.car2go.update_positions import UpdatePositions
-from ott.model.carshare.zipcar.update_positions import ZipcarPodsAndVehicles
+from ott.carshare.model.database import Database
+from ott.carshare.model.position import Position
+from ott.carshare.model.car2go.car2go_vehicle   import Car2GoVehicle
+from ott.carshare.model.car2go.update_positions import UpdatePositions
+from ott.carshare.model.zipcar.update_positions import ZipcarPodsAndVehicles
 
-from ott.model.carshare.zipcar.zipcar_vehicle import ZipcarPod
-from ott.model.carshare.zipcar.zipcar_vehicle import ZipcarVehicle
+from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarPod
+from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
 
 import logging

@@ -3,7 +3,7 @@ import datetime
 from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime
 from sqlalchemy.sql import func, and_
 
-from ott.model.base import Base
+from ott.carshare.model.base import Base
 
 class Vehicle(Base):
     __tablename__ = 'vehicles'
