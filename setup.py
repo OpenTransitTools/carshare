@@ -2,6 +2,7 @@ from setuptools import setup, find_packages
 import sys
 
 required_eggs = [
+    'pyramid',
     'simplejson',
     'geoalchemy',
 ]
