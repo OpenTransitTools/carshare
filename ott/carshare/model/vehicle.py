@@ -37,23 +37,34 @@ class Vehicle(Base):
         # step 1: get position object from db ...criteria is to find last position 
         #          update within an hour, and the car hasn't moved lat,lon
         hours_ago = datetime.datetime.now() - datetime.timedelta(hours=time_span)
-        p = session.query(Position).filter(
-                   and_(
-                        Position.vehicle_id == self.id,
-                        Position.updated >= hours_ago,
-                        Position.lat == lat,
-                        Position.lon == lon,
-                    ) 
-                ).first()
+        p = None
+        try:
+            p = session.query(Position).filter(
+                       and_(
+                            Position.vehicle_id == self.id,
+                            Position.updated >= hours_ago,
+                            Position.lat == lat,
+                            Position.lon == lon,
+                        ) 
+                    ).first()
+        except:
+            print 'EX'
 
-        # step 2: we didn't find an existing position in the Position history table, so add a new one 
-        if p is None:
-            p = Position()
-            p.vehicle_id = self.id
-            session.add(p)
-
-        # step 3: update the position record
-        p.set_position(lat, lon, address, neighborhood)
+        # step 2: we didn't find an existing position in the Position history table, so add a new one
+        try: 
+            if p is None:
+                p = Position()
+                p.vehicle_id = self.id
+                p.set_position(lat, lon, address, neighborhood)
+                session.add(p)
+                session.flush()
+                session.commit()
+            else:
+                # step 3: update the position record if need be
+                p.set_position(lat, lon, address, neighborhood)
+        except:
+            print 'EXCEPTION committing position to db for vehicle id={0}, lat={1}, lon={2}'.format(p.vehicle_id, lat, lon)
+            session.rollback()
 
         return p
 
