@@ -3,6 +3,7 @@ import sys
 
 required_eggs = [
     'pyramid',
+    'waitress',
     'simplejson',
     'geoalchemy',
     'setuptools',
@@ -22,6 +23,7 @@ if sys.version_info[:2] < (2, 7):
 # eggs you need for development, but not production
 #
 dev_extras = (
+    'waitress',
     'zc.buildout',
     'coverage>=3.5.2',
     'fabric>=1.4.3',
