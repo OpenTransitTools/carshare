@@ -5,6 +5,7 @@ required_eggs = [
     'pyramid',
     'waitress',
     'simplejson',
+    'geojson',
     'geoalchemy',
     'setuptools',
 ]
