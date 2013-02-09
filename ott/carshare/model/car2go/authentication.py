@@ -1,6 +1,6 @@
 import httplib
 import urlparse 
-import oauth2 as oauth
+#import oauth2 as oauth
 import time
 
 # settings for the local test consumer
@@ -150,5 +150,5 @@ def pause():
     time.sleep(1)
 
 if __name__ == '__main__':
-    run_example()
+#    run_example()
     print 'Done.'
