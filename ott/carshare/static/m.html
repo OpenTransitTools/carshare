@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" type="image/ico" href="favicon.ico" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>OpenTransitTools: Carshare (Portland)</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0;">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link rel="stylesheet" href="css/jquery.mobile.min.css">
+        <link rel="stylesheet" href="css/style.mobile.css" type="text/css">
+        <script src="js/jquery/jquery.min.js"></script>
+        <script src="js/jquery/jquery.mobile.min.js"></script>
+        <script src="js/jquery/jquery.raty.min.js"></script>
+        <script src="js/openlayers/OpenLayers.mobile.js"></script>
+        <script src="js/Base.js"></script>
+        <script src="js/SelectControl.js"></script>
+        <script src="js/mobile/Map.js"></script>
+        <script src="js/mobile/Ui.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Start with the map page
+                if (window.location.hash && window.location.hash!='#mappage') {
+                    $.mobile.changePage('mappage');
+                }
+
+                var m  = new Base.mobile.Map();
+                var ui = new Base.mobile.Ui({map:m.map, mapctl:m});
+                m.ui = ui;
+                ui.refreshAllVotesData();
+            });
+        </script>
+    </head>
+    <body>
+        <h1 id="title">CrowdCycle</h1>
+        <div id="tags">
+          mobile, jquery
+        </div>
+        <p id="shortdesc">
+          Vote on bike routes
+        </p>
+
+        <div id="mappage" data-role="page">
+          <div data-role="content">
+            <div id="map"></div>
+          </div>
+
+          <div data-role="footer">
+            <a href="#" id="locate" data-icon="locate" data-role="button">Locate</a>
+            <a href="#layerspage" data-icon="layers" data-role="button">Layers</a>
+		    <a href="#infopage" data-icon="info" data-role="button">Info</a>
+          </div>
+          <div id="navigation" data-role="controlgroup" data-type="vertical">
+            <a href="#" data-role="button" data-icon="plus"  id="plus"  data-iconpos="notext"></a>
+            <a href="#" data-role="button" data-icon="minus" id="minus" data-iconpos="notext"></a>
+          </div>
+        </div>
+
+        <div id="layerspage" data-role="page">
+          <div data-role="header">
+            <h1>Layers</h1>
+          </div>
+          <div data-role="content">
+            <ul data-role="listview" data-inset="true" data-theme="d" data-dividertheme="c" id="layerslist"></ul>
+          </div>
+        </div>
+		
+		<div id="infopage" data-role="page">
+			<div data-role="header">
+				<h1>About CC</h1>
+			</div>
+			<div data-role="content" style="text-align:center; padding:15px">
+				<h5>CrowdCycle is a Portland State University and TriMet project to gather and display user opinions of the bicycle facilities in the Portland, OR area. It is our hope that this data will be used to improve bicycle trip planning services and for research purposes.</h5>
+				<h5>The current (beta) version includes a pilot area and a mobile-optimized interface. Rate some bike routes and check out what other people think using your mobile device or web browser (not Internet Explorer compatible). Please email any feedback to <a href="mailto:crowdcycle@gmail.com">CrowdCycle at gmail dot com</a>. Thank you!</h5>
+				<h5><i>---Melelani Sax-Barnett and Grant Humphries, with thanks to Frank Purcell, Bibiana McHugh, Vivek Shandas, Jack Newlevant, TriMet, and Metro</i></h5> 
+			</div>
+		</div>
+
+        <div id="popup" data-role="dialog">
+            <div data-position="inline" data-theme="d" data-role="header">
+                <h2>Details</h2>
+            </div>
+            <div data-theme="c" data-role="content">
+                <ul id="details-list" data-role="listview"></ul>
+            </div>
+        </div>
+    </body>
+</html>
