@@ -2,16 +2,21 @@ from ott.carshare.model.database import Database
 
 import geojson
 from ott.carshare.loader import init_parser
+from ott.carshare.model.position import Position
 
 def main():
     args = init_parser()
-    print args
     db = Database(args.url, args.schema)
 
-    f1 = geojson.Feature(id=1, geometry=geojson.Point(coordinates=(53.04781795911469, -4.10888671875)))
-    f2 = geojson.Feature(id=2, geometry=geojson.Point(coordinates=(53.04781795911469, -4.10888671875)))
-    f  = [f1, f2]
-    fc = geojson.FeatureCollection(f)
+    session = db.get_session()
+    positions = session.query(Position).all()
+
+    features = []
+    for i, p in enumerate(positions):
+        f = geojson.Feature(id=i, geometry=geojson.Point(coordinates=(p.lat, p.lon)))
+        features.append(f)
+
+    fc = geojson.FeatureCollection(features)
     json = geojson.dumps(fc, sort_keys=True)
     print json
 
