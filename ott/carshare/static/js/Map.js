@@ -22,7 +22,7 @@ function center_map(map, lon, lat, zoom)
 }
 
 
-function make_ol_map(wmsc_urls)
+function make_ol_map(wmsc_urls, num_zooms)
 {
     var osm_att = "Map data © <a href='http://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a> contributors. ";
 
@@ -55,23 +55,31 @@ function make_ol_map(wmsc_urls)
         0.00933069192767143306
     ];
 
-    // default tilecache is ...
-    if(!wmsc_urls)
+    // default tilecache is MapQuest ...
+    if (!wmsc_urls)
+    {
+        osm_att = osm_att + " Tiles courtesy of <a href='http://open.mapquest.com/' target='_blank'>MapQuest</a>"
         wmsc_urls = [
-            "http://maps5.trimet.org/tilecache/tilecache.py/1.0.0/currentOSM/${z}/${x}/${y}"
+                   "http://otile2.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.png",
+                   "http://otile3.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.png",
+                   "http://otile4.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.png"
         ];
+        num_zooms = 9;
+    }
+    if(!num_zooms)
+        num_zooms = 9;
 
     var tm_base_opts = {
        serverResolutions : ol_rez,
        maxResolution     : 76.43702827148437961569,
-       numZoomLevels     : 10,
+       numZoomLevels     : num_zooms,
        buffer            : 0,
        tileOptions       : {crossOriginKeyword: null},
        transitionEffect  : 'resize',
        attribution       : osm_att
     };
     var map = new OpenLayers.Map('map', tm_base_opts);
-    var basemap = new OpenLayers.Layer.OSM("TriMet OSM Map", wmsc_urls, tm_base_opts)
+    var basemap = new OpenLayers.Layer.OSM("OSM Map", wmsc_urls, tm_base_opts)
     map.addLayer(basemap);
 
     return map;

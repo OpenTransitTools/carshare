@@ -30,7 +30,7 @@
     var map = make_ol_map();
     center_map(map, -122.68, 45.5, 1);
 
-    var geo_url = "/js/test/collection.json";
+    var geo_url = "/js/mock/collection.json";
     var vector = new OpenLayers.Layer.Vector("GeoJSON", {
         projection: "EPSG:4326",
         strategies: [new OpenLayers.Strategy.Fixed()],
