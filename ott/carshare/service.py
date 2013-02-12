@@ -13,7 +13,7 @@ def main():
 
     features = []
     for i, p in enumerate(positions):
-        f = geojson.Feature(id=i, geometry=geojson.Point(coordinates=(p.lat, p.lon)))
+        f = geojson.Feature(id=i, geometry=geojson.Point(coordinates=(p.lon, p.lat)))
         features.append(f)
 
     fc = geojson.FeatureCollection(features)
