@@ -112,20 +112,165 @@ function make_ol_map(wmsc_urls, num_zooms)
  * @param {Object} map
  * @param {Object} url
  * @param {Object} name (optional)
+ * @param {Object} style (optional)
  */
-function make_geojson_layer(map, url, name)
+function make_geojson_layer(map, url, name, style)
 {
-    if (!name) name = "GeoJSON";
+    if(!name)  name  = "GeoJSON";
+    if(!style) style = carshare_vector_style();
 
     var vector = new OpenLayers.Layer.Vector(name, {
         projection: "EPSG:4326",
         strategies: [new OpenLayers.Strategy.Fixed()],
+        styleMap: style,
         protocol: new OpenLayers.Protocol.HTTP({
             url:  url,
             format: new OpenLayers.Format.GeoJSON()
         })
     });
     map.addLayer(vector);
+    carshare_popup(map, vector);
     return vector;
 }
 
+/**
+ * carshare vector layer style
+ */
+function carshare_vector_style()
+{
+    var style = new OpenLayers.Style({
+        cursor        : 'pointer',
+        pointRadius   : 5,
+        strokeOpacity : 0.5,
+        fillOpacity   : 0.4,
+        fillColor     : "#ee9900"
+    });
+    var styleMap = new OpenLayers.StyleMap({
+        "default": style
+    });
+
+    var lookup = {
+        "xxx"    : {fillColor: "red"},
+        "zipcar" : {fillColor: "green"},
+        "car2go" : {fillColor: "blue"}
+    };
+    styleMap.addUniqueValueRules("default", "company", lookup);
+
+    return styleMap;
+}
+
+
+function carshare_popup(map, vector)
+{
+    // Used to display the dialog popup
+    var selectControl;
+    var selectedFeature;
+
+    function onPopupClose(evt) 
+    {
+        selectControl.unselect(selectedFeature);
+    }
+    function onFeatureSelect(feature)
+    {
+        var selectedFeature = feature;
+        var popup = new OpenLayers.Popup.FramedCloud("popup",
+            feature.geometry.getBounds().getCenterLonLat(),
+            null, feature.data.company + ' - ' + feature.data.vehicle_id, null, true, onPopupClose
+        );
+        popup.panMapIfOutOfView = true;
+        popup.autoSize = true;
+        feature.popup = popup;
+        map.addPopup(popup);
+    }
+    function onFeatureUnselect(feature)
+    {
+        map.removePopup(feature.popup);
+        feature.popup.destroy();
+        feature.popup = null;
+    }
+
+    selectControl = new OpenLayers.Control.SelectFeature(vector,
+        {
+            onSelect:   onFeatureSelect,
+            onUnselect: onFeatureUnselect 
+        }
+    );
+    map.addControl(selectControl);
+    selectControl.activate();
+}
+
+
+/** */
+function setHighlightPopup()
+{
+    // popup for map tooltips
+    OpenLayers.Popup.StopToolTip = OpenLayers.Class(OpenLayers.Popup, { 
+            'xcontentDisplayClass': 'carshareToolTip' 
+    }); 
+    this.popup = new OpenLayers.Popup.StopToolTip("stopTipPopup", null, new OpenLayers.Size(150, 28), null, false);
+    trimet.map.wfs.SelectControlStatic.popup = this.popup;
+    trimet.map.wfs.SelectControlStatic.THIS.popup = this.popup;
+    this.popup.setOpacity(1.00);
+    this.map.addPopup(this.popup);
+    this.popup.hide();
+
+    // events
+    this.highlightControl.events.register("featurehighlighted",   this,  this.highlightPopupOn);
+    this.highlightControl.events.register("featureunhighlighted", this,  this.highlightPopupOff);
+    this.map.events.register('click', this, this.highlightPopupOff);
+}
+
+
+/**
+ * 
+ */
+popupTimeout : null;
+function highlightPopupOff()
+{
+    var self = trimet.map.wfs.SelectControlStatic.THIS;
+    if(self.popup && self.popupTimeout == null)
+    {
+        self.popupTimeout = setTimeout(function() {self.popup.hide(); self.popupTimeout=null;}, 422);
+    }
+}
+
+
+/** */
+function highlightPopupOn(event)
+{
+    
+    try
+    {
+        var self = trimet.map.wfs.SelectControlStatic.THIS;
+        var feature = event.feature;
+        if(feature == null || feature.attributes.id == null || feature.attributes.type == null) 
+            return;
+
+        if(self.popupTimeout != null)
+        {
+            clearTimeout(self.popupTimeout);
+            self.popupTimeout = null;
+        }
+
+        if(self.popup.sid == feature.attributes.id)
+        {
+            self.popup.show();
+            return;
+        }
+
+        // show stop id
+        var type = feature.attributes.type;
+        if(trimet.utils.TrimetUtils.isVehicleType(type))
+        {
+            var ll = feature.geometry.getBounds().getCenterLonLat();
+            self.popup.lonlat = new OpenLayers.LonLat(ll.lon, ll.lat); 
+            self.popup.updatePosition();
+            self.popup.setContentHTML(trimet.utils.TrimetUtils.getModeImg(type) + " Stop ID " + feature.attributes.id);
+            self.popup.sid = feature.attributes.id;
+            self.popup.show();
+        }
+    }
+    catch(e)
+    {
+    }
+}

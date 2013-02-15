@@ -3,11 +3,16 @@
     <head>
     <meta charset="utf-8" />
     <link type="text/css" rel="stylesheet" href="/css/carshare.css"></link>
+    <link type="text/css" rel="stylesheet" href="http://openlayers.org/dev/theme/default/style.css"></link>
+    <style>
+        #map{ width: 100%; height: 100%; }
+    </style>
     <script src='http://openlayers.org/api/OpenLayers.js'></script>
     <script src='js/Map.js'></script>
     </head>
     <body>
-        <div id='map'></div>
+        <div id='popup'></div>
+        <div id='map' style="width: 100%; height: 100%"></div>
         <script type="text/javascript">
         var map = make_ol_map();
         center_map(map, -122.68, 45.5, 2);
