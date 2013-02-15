@@ -1,6 +1,5 @@
 import geojson
 
-from ott.carshare.model.database import Database
 import ott.carshare.services.queries as q
 
 def features_to_json(features):
@@ -56,6 +55,7 @@ def vehicle_history_geojson(session, vid):
 
 
 def main():
+    from ott.carshare.model.database import Database
     from ott.carshare.loader import init_parser
     args = init_parser()
     db = Database(args.url, args.schema)

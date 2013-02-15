@@ -5,32 +5,36 @@ from wsgiref.simple_server import make_server
 from pyramid.config import Configurator
 from pyramid.response import Response
 from pyramid.view import view_config
+from pyramid.decorator import reify
+
+from ott.carshare.model.database import Database
+import ott.carshare.services.carshare as ws
+
+def get_database_pool():
+    print "create the db pool"
+    return Database()
+
+db = get_database_pool()
 
 @view_config(route_name='default_index', renderer='index.html')
 def index(request):
     return {'project': 'CarShare'}
 
 
-@view_config(route_name='positions_ws', renderer='json')
+@view_config( route_name='positions_ws', renderer='json')
 def positions(request):
-    ret_val = ''
-    return ret_val
+    ses = db.get_session()
+    json = ws.latest_positions_geojson(ses)
+    return json
 
 
 @view_config(route_name='mock_positions_ws', renderer='json')
 def mock_positions(request):
     ''' return the latest carshare positions as geojson
     '''
-    ret_val = ''
-    f = None
-    try:
-        path= request.BASE_DIR + '/static/js/mock/collection.json'
-        f = open(path, 'r')
-        ret_val = f.readlines()
-    finally:
-        if f:
-            f.close()
-    return ret_val
+    response = request.response
+    response.app_iter = open(request.BASE_DIR + '/static/js/mock/collection.json', 'r')
+    return response 
 
 
 def carshare_static_config(config):
