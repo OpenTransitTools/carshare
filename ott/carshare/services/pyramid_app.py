@@ -23,18 +23,29 @@ def index(request):
 
 @view_config( route_name='positions_ws', renderer='json')
 def positions(request):
+    ''' return the latest carshare positions as geojson
+    '''
     ses = db.get_session()
     json = ws.latest_positions_geojson(ses)
-    return json
+    return Response(json)
+
+
+@view_config( route_name='positions_ws', renderer='json')
+def positions(request):
+    ''' return the latest carshare positions as geojson
+    '''
+    ses = db.get_session()
+    json = ws.latest_positions_geojson(ses)
+    return Response(json)
 
 
 @view_config(route_name='mock_positions_ws', renderer='json')
 def mock_positions(request):
-    ''' return the latest carshare positions as geojson
+    ''' stream a mock .json file out in the response
     '''
     response = request.response
     response.app_iter = open(request.BASE_DIR + '/static/js/mock/collection.json', 'r')
-    return response 
+    return response
 
 
 def carshare_static_config(config):

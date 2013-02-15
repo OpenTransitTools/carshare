@@ -4,6 +4,15 @@
 WGS_SRS = "EPSG:4326";
 WEB_SRS = "EPSG:900913";
 
+/** 
+ * creates an OpenLayers.LonLat ojbect
+ * transforms the coordinates if need be (e.g., 4326 -> 900913)
+ *  
+ * @param {Object} lon
+ * @param {Object} lat
+ * @param {Object} from_prj (optional)
+ * @param {Object} to_prj (optional)
+ */
 function get_lon_lat(lon, lat, from_prj, to_prj)
 {
     var ll = new OpenLayers.LonLat(lon, lat)
@@ -13,15 +22,27 @@ function get_lon_lat(lon, lat, from_prj, to_prj)
     return ll;
 }
 
+
+/**
+ * center (and otionally zoom) the map to a lon/lat (X/Y) coordinate
+ * 
+ * @param {Object} map
+ * @param {Object} lon
+ * @param {Object} lat
+ * @param {Object} zoom (optional)
+ */
 function center_map(map, lon, lat, zoom)
 {
     var c = get_lon_lat(lon, lat, WGS_SRS, map.getProjectionObject())
-    if(!zoom)
-        zoom = 2;
     map.setCenter(c, zoom);
 }
 
-
+/**
+ * create an OpenLayers basemap
+ * 
+ * @param {Object} wmsc_urls
+ * @param {Object} num_zooms
+ */
 function make_ol_map(wmsc_urls, num_zooms)
 {
     var osm_att = "Map data © <a href='http://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a> contributors. ";
@@ -85,4 +106,26 @@ function make_ol_map(wmsc_urls, num_zooms)
     return map;
 }
 
+/**
+ * create a geojson vector layer
+ * 
+ * @param {Object} map
+ * @param {Object} url
+ * @param {Object} name (optional)
+ */
+function make_geojson_layer(map, url, name)
+{
+    if (!name) name = "GeoJSON";
+
+    var vector = new OpenLayers.Layer.Vector(name, {
+        projection: "EPSG:4326",
+        strategies: [new OpenLayers.Strategy.Fixed()],
+        protocol: new OpenLayers.Protocol.HTTP({
+            url:  url,
+            format: new OpenLayers.Format.GeoJSON()
+        })
+    });
+    map.addLayer(vector);
+    return vector;
+}
 

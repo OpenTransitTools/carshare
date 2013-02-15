@@ -29,6 +29,11 @@ def latest_positions_geojson(session):
     return json
 
 
+def vehicle_information(session, vid):
+    ''' return vehicle data as json
+    '''
+    return ''
+
 def vehicle_history_geojson(session, vid):
     ''' return geojson of latest positions
     
