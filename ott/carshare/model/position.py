@@ -1,8 +1,8 @@
 import datetime
 
 from geoalchemy import GeometryColumn, GeometryDDL, Point, WKTSpatialElement
-from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, ForeignKey
-from sqlalchemy.sql import func
+from sqlalchemy import Column, Index, Integer, Numeric, String, Boolean, DateTime, ForeignKey, ForeignKeyConstraint
+from sqlalchemy.sql import func, and_
 from sqlalchemy.orm import relation, backref
 
 from ott.carshare.model.base import Base
@@ -25,17 +25,19 @@ class Position(Base):
     lon = Column(Numeric(12,9), nullable=False)
     created = Column(DateTime, default=datetime.datetime.now())
     updated = Column(DateTime, default=datetime.datetime.now())
+    latest  = Column(Boolean,  default=False)
 
-    vehicle_id = Column(
-        String,
-        ForeignKey(Vehicle.id, ondelete='CASCADE'),
-        nullable=False
-    )
+    vehicle_id  = Column(String, nullable=False)
+    carshare_co = Column(String, nullable=False)
+
+    __table_args__ = (ForeignKeyConstraint([vehicle_id, carshare_co],
+                                           [Vehicle.id, Vehicle.carshare_company]),
+                     {})
+
     vehicle = relation(Vehicle, backref=backref('vehicles', order_by=id, cascade="all, delete-orphan"))
 
-
     def set_position(self, lat, lon, address=None, neighborhood=None):
-        ''' set the lat / lon of this object, and update the timestamp
+        ''' set the lat / lon of this object, and update the timestamp and 'latest' status (to True)
         '''
         self.lat = lat
         self.lon = lon
@@ -46,6 +48,15 @@ class Position(Base):
         self.address = address
         self.neighborhood = neighborhood
         self.updated = datetime.datetime.now()
+        self.latest  = True
+
+
+    @classmethod
+    def clear_latest_column(cls, session, car_co='car2go'):
+        ''' set all latest=True positions to false (for a give car company)
+        '''
+        session.query(Position).filter(and_(Position.latest == True, Position.carshare_co == car_co)
+                              ).update({"latest":False}, synchronize_session=False)
 
 
     @classmethod

@@ -13,7 +13,7 @@ from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 # VEHICLE DETAILS:/api/2.0/vehicles/513127255.json 
 
 LOC_PARAM='lat=45.5&long=-122.5&lat_delta=1.0&lng_delta=1.0'
-TEST_LOC_PARAM='lat=45.5&long=-122.5&lat_delta=0.05&lng_delta=0.09'
+TEST_LOC_PARAM='lat=45.5&long=-122.5&lat_delta=0.7&lng_delta=0.11'
 
 
 class ZipcarPodsAndVehicles():
@@ -23,7 +23,7 @@ class ZipcarPodsAndVehicles():
             3. vehicle detail svc
     '''
 
-    def __init__(self, db, key, zipcar_domain, loc=LOC_PARAM):
+    def __init__(self, db, key, zipcar_domain, loc=TEST_LOC_PARAM):
         # would like to be able to overwrite the folling via config file for testing o
         self.pod_url_template = "{0}/api/2.0/locations.json?{2}"
         self.vlist_url_template = "{0}/api/2.0/locations/{2}/vehicles.json"

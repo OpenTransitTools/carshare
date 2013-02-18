@@ -18,17 +18,31 @@ VEHICLES_URL="https://www.car2go.com/api/v2.1/vehicles"
 class UpdatePositions():
 
     def __init__(self, db, key, svc=VEHICLES_URL, loc='Portland', format='json'):
+        ''' call the car2go service, retrieve new positions, and update car position database
+        '''
+
+        # step 1: new car2go data
         self.pos = []
         self.url = "{0}?oauth_consumer_key={1}&format={2}&loc={3}".format(svc, key, format, loc)
         print self.url
-
         raw = urllib.urlopen(self.url)
         car2go_data = json.load(raw)
-        session = db.get_session()
-        for v in car2go_data['placemarks']:
-            self.append_pos(session, v)
-        session.flush()
-        session.commit()
+
+        # step 2: if we have valid data, update the database
+        if car2go_data and len(car2go_data['placemarks']) > 0:
+            session = db.get_session()
+
+            # step 2a: clear out the 'latest' flag from the position table (so we know the new service data is the 'latest' positions)
+            Position.clear_latest_column(session, Car2GoVehicle.identity)
+
+            # step 2b: update the positions 
+            for v in car2go_data['placemarks']:
+                self.append_pos(session, v)
+                continue
+
+            # step 2c: commit the new positions
+            session.flush()
+            session.commit()
 
 
     def append_pos(self, session, vehicle):
