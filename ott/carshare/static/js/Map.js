@@ -154,7 +154,7 @@ function carshare_vector_style()
         "zipcar" : {fillColor: "green"},
         "car2go" : {fillColor: "blue"}
     };
-    styleMap.addUniqueValueRules("default", "company", lookup);
+    styleMap.addUniqueValueRules("default", "carshare_co", lookup);
 
     return styleMap;
 }
@@ -175,7 +175,7 @@ function carshare_popup(map, vector)
         var selectedFeature = feature;
         var popup = new OpenLayers.Popup.FramedCloud("popup",
             feature.geometry.getBounds().getCenterLonLat(),
-            null, feature.data.company + ' - ' + feature.data.vehicle_id, null, true, onPopupClose
+            null, feature.data.carshare_co + ' - ' + feature.data.vehicle_id, null, false, onPopupClose
         );
         popup.panMapIfOutOfView = true;
         popup.autoSize = true;
