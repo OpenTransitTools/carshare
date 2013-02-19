@@ -1,3 +1,4 @@
+import datetime
 from sqlalchemy.ext.declarative import declarative_base
 
 class _Base(object):
@@ -25,20 +26,30 @@ class _Base(object):
         ''' 
         ret_val = self.__dict__.copy()
 
-        ''' not crazy about this hack, but ... 
-            the __dict__ on a SQLAlchemy object contains hidden crap that we delete from the class dict
-        '''
+        # the __dict__ on a SQLAlchemy object contains hidden crap that we delete from the class dict
+        # (not crazy about this hack, but ...) 
         if set(['_sa_instance_state']).issubset(ret_val):
             del ret_val['_sa_instance_state']
 
-        ''' we're using 'created' as the date parameter, so convert values to strings
-            TODO: better would be to detect date & datetime objects, and convert those...
+        # convert time, date & datetime, etc... objects to iso formats
+        for k in ret_val.keys():
+            v = ret_val[k] 
+            if hasattr(v,"isoformat"):
+                ret_val[k] = v.isoformat()
+
+        return ret_val
+
+
+    @classmethod
+    def to_dict_list(cls, list):
+        ''' apply to_dict() to all elements in list, and return new / resulting list...
         '''
-        if set(['created']).issubset(ret_val):
-            ret_val['created'] = ret_val['created'].__str__();
-
-        return ret_val 
-
+        ret_val = []
+        for l in list:
+            if hasattr(l,"to_dict"):
+                l = l.to_dict()
+            ret_val.append(l)
+        return ret_val
 
     @classmethod
     def bulk_load(cls, engine, records, remove_old=True):

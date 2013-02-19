@@ -1,4 +1,5 @@
 import datetime
+import geojson
 
 from geoalchemy import GeometryColumn, GeometryDDL, Point, WKTSpatialElement
 from sqlalchemy import Column, Index, Integer, Numeric, String, Boolean, DateTime, ForeignKey, ForeignKeyConstraint
@@ -30,9 +31,12 @@ class Position(Base):
     vehicle_id  = Column(String, nullable=False)
     carshare_co = Column(String, nullable=False)
 
-    __table_args__ = (ForeignKeyConstraint([vehicle_id, carshare_co],
-                                           [Vehicle.id, Vehicle.carshare_company]),
-                     {})
+    __table_args__ = (
+        ForeignKeyConstraint(
+              [vehicle_id, carshare_co],
+              [Vehicle.id, Vehicle.carshare_company]),
+              {}
+    )
 
     vehicle = relation(Vehicle, backref=backref('vehicles', order_by=id, cascade="all, delete-orphan"))
 
@@ -74,3 +78,22 @@ class Position(Base):
         )
         row['geom'] = WKTSpatialElement(wkt)
 
+
+    @classmethod
+    def to_geojson_features(cls, positions):
+        ''' loop through list of Position objects and turn them into geojson features
+        '''
+        ret_val = []
+        for i, p in enumerate(positions):
+            properties = {
+                'position_id' : p.id,
+                'vehicle_id'  : p.vehicle_id,
+                'carshare_co' : p.carshare_co,
+                'created'     : p.created.isoformat(),
+                'updated'     : p.updated.isoformat()
+            }
+            geo = geojson.Point(coordinates=(p.lon, p.lat))
+            f = geojson.Feature(id=i+1, properties=properties, geometry=geo)
+            ret_val.append(f)
+    
+        return ret_val

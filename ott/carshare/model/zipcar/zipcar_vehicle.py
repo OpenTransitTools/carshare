@@ -113,7 +113,7 @@ class ZipcarVehicle(Vehicle):
         '''
         self.name = self.get_attribute(dict, 'name')
         self.model_id = self.get_attribute(dict, 'model_id') 
-        self.img_url = "https://media.zipcar.com/images/model-image?model_id={0}".format(self.model_id)
+        self.img_url = "http://media.zipcar.com/images/model-image?model_id={0}".format(self.model_id)
         self.type = self.get_attribute(dict, 'pretty_type')
         self.model = self.get_attribute(dict, 'model')
         self.make = self.get_attribute(dict, 'make')

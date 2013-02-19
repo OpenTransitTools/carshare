@@ -34,3 +34,7 @@ class Database(object):
         session = Session()
         return session
 
+    @classmethod
+    def make_database_pool(cls):
+        log.info("create the db pool")
+        return Database()
