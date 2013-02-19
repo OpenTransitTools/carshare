@@ -85,12 +85,15 @@ class Position(Base):
         '''
         ret_val = []
         for i, p in enumerate(positions):
+            td = p.updated - p.created
+            el = (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6
             properties = {
                 'position_id' : p.id,
                 'vehicle_id'  : p.vehicle_id,
                 'carshare_co' : p.carshare_co,
                 'created'     : p.created.isoformat(),
-                'updated'     : p.updated.isoformat()
+                'updated'     : p.updated.isoformat(),
+                'elapsed'     : el
             }
             geo = geojson.Point(coordinates=(p.lon, p.lat))
             f = geojson.Feature(id=i+1, properties=properties, geometry=geo)
