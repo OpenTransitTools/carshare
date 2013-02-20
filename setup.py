@@ -6,6 +6,7 @@ README = open(os.path.join(here, 'README.md')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
+    'argparse',
     'pyramid',
     'pyramid_debugtoolbar',
     'waitress',
@@ -25,49 +26,31 @@ dev_extras = (
     'zest.releaser>=3.37',
 )
 
-"""
-xsetup(
+
+setup(
     name='ott.carshare',
     version='0.1.0',
     description='Open Transit Tools - Carshare db loader and json web services',
-    url='https://github.com/OpenTransitTools/carshare',
-    namespace_packages=('ott',),
-    packages=find_packages(),
-    include_package_data=True,
-    zip_safe=False,
-    install_requires=required_eggs,
-    extras_require=dict(dev=dev_extras),
-    entry_points = '''\
-      [paste.app_factory]
-      main = ott.carshare:main
-      '''
-)
-"""
-
-setup(
-      name='ott.carshare',
-      version='0.1.0',
-      description='Open Transit Tools - Carshare db loader and json web services',
-      long_description=README + '\n\n' + CHANGES,
-      classifiers=[
+    long_description=README + '\n\n' + CHANGES,
+    classifiers=[
         "Programming Language :: Python",
         "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-      ],
-      author='Frank Purcell',
-      author_email='ott@frankpurcell.com',
-      url='http://opentransittools.com',
-      keywords='carshare',
-      packages=find_packages(),
-      include_package_data=True,
-      zip_safe=False,
-      install_requires=requires,
-      tests_require=requires,
-      test_suite="ott.carshare",
-      extras_require=dict(dev=dev_extras),
-      entry_points="""\
+    ],
+    author='Frank Purcell',
+    author_email='ott@frankpurcell.com',
+    url='http://opentransittools.com',
+    keywords='carshare',
+    packages=find_packages(),
+    include_package_data=True,
+    zip_safe=False,
+    install_requires=requires,
+    tests_require=requires,
+    test_suite="ott.carshare",
+    extras_require=dict(dev=dev_extras),
+    entry_points="""\
         [paste.app_factory]
         main = ott.carshare:main
-      """,
-      )
+    """,
+)
