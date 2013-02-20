@@ -30,3 +30,19 @@ def vehicle_information(session, id):
     v = session.query(Vehicle).filter(Vehicle.id==id).first()
     return v
 
+
+def nearest_vehicles(session, lon, lat, dist):
+    ''' from the 'latest' positions, find 
+    '''
+    v = session.query(Position).\
+                filter(Position.latest == True).\
+                filter(Position.calc_distance(Position.lon, Position.lat, (lon, lat)) < dist)
+    return v
+
+
+def nearest_positions(session, lon, lat, dist, limit=1000):
+    ''' from ALL positions (latest and historical), find points 
+    '''
+    p = session.query(Position).filter(Position.calc_distance(Position.lon, Position.lat, (lon, lat)) < dist).limit(limit)
+    return p
+

@@ -48,8 +48,14 @@ def main():
     args = init_parser()
     db = Database(args.url, args.schema)
     session = db.get_session()
-    p = latest_positions_geojson(session)
-    print p
+
+    #p = latest_positions_geojson(session)
+    #print p
+
+    v = q.nearest_positions(session, -122.69689, 45.53798, 0.25)
+    print v.all()
+
+
 
 if __name__ == '__main__':
     main()

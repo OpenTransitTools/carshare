@@ -100,3 +100,44 @@ class Position(Base):
             ret_val.append(f)
     
         return ret_val
+
+
+    @classmethod
+    def calc_distance(cls, lon, lat, point):
+        '''
+            @params: lon, lat, point(lon, lat) ... thing we're comparing to the lon,lat of this object
+
+            @see: http://stackoverflow.com/questions/574691/mysql-great-circle-distance-haversine-formula/574736#574736
+
+            Here's the SQL statement that will find the closest 20 locations that are within a radius of 25 miles to the 
+            45.5, -122.5 coordinate. It calculates the distance based on the latitude/longitude of that row and the target 
+            latitude/longitude, and then asks for only rows where the distance value is less than 25, orders the whole query
+             by distance, and limits it to 20 results. To search by kilometers instead of miles, replace 3959 with 6371.
+
+            Haversine formula
+            SELECT( 3959 
+                   * acos( 
+                        cos( radians(45.5) ) 
+                      * cos( radians( lat ) )
+                      * cos( radians( lng ) - radians(-122.5) )
+                      + sin( radians(45.5) ) * sin( radians( lat ) ) 
+                     )
+                ) AS distance 
+
+        '''
+        haversine = (
+                    3959
+                    * 
+                    func.acos( 
+                         func.cos( func.radians(point[1]) )
+                         *
+                         func.cos( func.radians(lat) )
+                         *
+                         func.cos( func.radians(lon) - func.radians(point[0]) )
+                         +
+                         func.sin( func.radians(point[1]) )
+                         *
+                         func.sin( func.radians(lat) )
+                    )
+        )
+        return haversine
