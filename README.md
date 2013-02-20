@@ -9,6 +9,6 @@ carshare
  - PRE: Register with car2go for a developer id at http://code.google.com/p/car2go/wiki/oauth#Registration_as_consumer
  - cd carshare
  - buildout
- - bin/python ott/carshare/loader.py -k <your car2go key> -u sqlite:///carshare.db -c
+ - bin/python ott/carshare/loader.py -k __ your car2go key __ -u sqlite:///carshare.db -c
  - bin/pserve development.ini
  - http://localhost:8080/static/test.html

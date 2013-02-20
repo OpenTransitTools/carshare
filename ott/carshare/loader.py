@@ -39,7 +39,7 @@ def init_parser():
         '-url',
         '-u',
         required='true',
-        help="(geo) database url ala dialect+driver://user:password@host/dbname[?key=value..] ... or simplyh sqlite:///carshare.db"
+        help="(geo) database url ala dialect+driver://user:password@host/dbname[?key=value..] ... or simply"
     )
     parser.add_argument(
         '--schema', 
