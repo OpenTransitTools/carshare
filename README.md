@@ -11,4 +11,4 @@ carshare
  - buildout
  - bin/python ott/carshare/loader.py -k __ your car2go key __ -u sqlite:///carshare.db -c
  - bin/pserve development.ini
- - http://localhost:8080/static/test.html
+ - http://localhost:31113/static/test.html
