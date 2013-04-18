@@ -12,3 +12,10 @@ carshare
  - bin/python ott/carshare/loader.py -k __ your car2go key __ -u sqlite:///carshare.db -c
  - bin/pserve development.ini
  - http://localhost:31113/static/test.html
+ 
+* Carshare in Portland, OR -- http://www.portlandoregon.gov/transportation/article/390417
+ - car2go
+ - Zipcar
+ - Getaround
+ - Relay Rides
+ - U-Hall Carshare ucarshare.com
