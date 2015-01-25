@@ -7,14 +7,16 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
     'argparse',
-    'pyramid',
-    #'pyramid_debugtoolbar',
     'waitress',
+    'pyramid',
+    'pyramid_mako',
+    #'pyramid_debugtoolbar',
+    'mako',
+    'pillow',
     'simplejson',
     'geojson',
     'sqlalchemy == 0.8.6', 
     'geoalchemy>=0.7.2',
-    'setuptools',
 ]
 
 extras_require = dict(
@@ -56,6 +58,8 @@ setup(
     test_suite="ott.carshare.tests",
     entry_points="""\
         [paste.app_factory]
+        main = ott.carshare.pyramid.app:main
+
         [console_scripts]
         loader = ott.carshare.loader:main
     """,

@@ -8,7 +8,7 @@ from pyramid.events import subscriber
 from pyramid.events import ApplicationCreated
 from pyramid.events import NewRequest
 
-from ott.view.pyramid import views
+from ott.carshare.pyramid import views
 from wsgiref.simple_server import make_server
 
 
@@ -32,9 +32,7 @@ def do_static_config(config):
     config.add_static_view('static',   'ott.view:static',          cache_max_age=cache_age)
     config.add_static_view('html',     'ott.view:static',          cache_max_age=cache_age)
     config.add_static_view('js',       'ott.view:static/js',       cache_max_age=cache_age)
-    config.add_static_view('m/js',     'ott.view:static/js',       cache_max_age=cache_age)
     config.add_static_view('css',      'ott.view:static/css',      cache_max_age=cache_age)
-    config.add_static_view('m/css',    'ott.view:static/css',      cache_max_age=cache_age)
     config.add_static_view('images',   'ott.view:static/images',   cache_max_age=cache_age)
     config.add_static_view('m/images', 'ott.view:static/images',   cache_max_age=cache_age)
     config.add_static_view('mock',   '  ott.view:static/mock',     cache_max_age=cache_age)
@@ -44,11 +42,9 @@ def do_static_config(config):
     config.add_mako_renderer('.html', settings_prefix='mako.')
 
     # internationalization ... @see: locale/subscribers.py for more info
-    config.add_translation_dirs('ott.view:locale')
-    config.add_subscriber('ott.view.locale.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
-    config.add_subscriber('ott.view.locale.subscribers.add_localizer', 'pyramid.events.NewRequest')
-
-
+    #config.add_translation_dirs('ott.carshare:locale')
+    #config.add_subscriber('ott.view.locale.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
+    #config.add_subscriber('ott.view.locale.subscribers.add_localizer', 'pyramid.events.NewRequest')
 
 @subscriber(ApplicationCreated)
 def application_created_subscriber(event):
@@ -57,7 +53,6 @@ def application_created_subscriber(event):
     '''
     #log.info('Starting pyramid server -- visit me on http://127.0.0.1:8080')
     print event
-
 
 @subscriber(NewRequest)
 def new_request_subscriber(event):
@@ -69,12 +64,10 @@ def new_request_subscriber(event):
     request = event.request
     request.BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
-
 def cmdline():
     ''' as an alternate to pserve, you can run this via bin/python ott/view/pyramid_app 
         it should start the server on http://127.0.0.1:8080
     '''
-    
 
     # configuration settings
     here = os.path.dirname(os.path.abspath(__file__))
@@ -96,4 +89,3 @@ def cmdline():
 
 if __name__ == '__main__':
     cmdline()
-
