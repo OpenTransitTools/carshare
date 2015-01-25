@@ -31,7 +31,7 @@ def do_static_config(config):
     cache_age=3600
     config.add_static_view('static',   'ott.carshare:static',          cache_max_age=cache_age)
     config.add_static_view('html',     'ott.carshare:static',          cache_max_age=cache_age)
-    #config.add_static_view('api-docs', 'ott.carshare:static/api-docs', cache_max_age=cache_age)
+    config.add_static_view('api-docs', 'ott.carshare:static/api-docs', cache_max_age=cache_age)
     config.add_static_view('js',       'ott.carshare:static/js',       cache_max_age=cache_age)
     config.add_static_view('css',      'ott.carshare:static/css',      cache_max_age=cache_age)
     config.add_static_view('images',   'ott.carshare:static/images',   cache_max_age=cache_age)
