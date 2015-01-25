@@ -9,6 +9,7 @@ carshare
  - PRE: Register with car2go for a developer id at http://code.google.com/p/car2go/wiki/oauth#Registration_as_consumer
  - cd carshare
  - buildout
+ - git update-index --assume-unchanged .pydevproject
  - bin/python ott/carshare/loader.py -k __ your car2go key __ -u sqlite:///carshare.db -c
  - bin/pserve development.ini
  - http://localhost:31113/static/test.html
@@ -19,3 +20,4 @@ carshare
  - Getaround
  - Relay Rides
  - U-Hall Carshare ucarshare.com
+
