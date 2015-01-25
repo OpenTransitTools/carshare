@@ -70,3 +70,9 @@ class Vehicle(Base):
         return p
 
 
+
+def main():
+    p = Position()
+
+if __name__ == '__main__':
+    main()

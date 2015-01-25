@@ -7,7 +7,6 @@ from sqlalchemy.sql import func, and_
 from sqlalchemy.orm import relation, backref
 
 from ott.carshare.model.base import Base
-from ott.carshare.model.vehicle import Vehicle
 
 class Position(Base):
     ''' holds a history of the coordinates of a vehicle...
@@ -31,6 +30,7 @@ class Position(Base):
     vehicle_id  = Column(String, nullable=False)
     carshare_co = Column(String, nullable=False)
 
+    '''
     __table_args__ = (
         ForeignKeyConstraint(
               [vehicle_id, carshare_co],
@@ -39,6 +39,7 @@ class Position(Base):
     )
 
     vehicle = relation(Vehicle, backref=backref('vehicles', order_by=id, cascade="all, delete-orphan"))
+    '''
 
     def set_position(self, lat, lon, address=None, neighborhood=None):
         ''' set the lat / lon of this object, and update the timestamp and 'latest' status (to True)

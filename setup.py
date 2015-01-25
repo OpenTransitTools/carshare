@@ -13,7 +13,7 @@ requires = [
     'simplejson',
     'geojson',
     'sqlalchemy == 0.8.6', 
-    'geoalchemy>=0.7.2'
+    'geoalchemy>=0.7.2',
     'setuptools',
 ]
 
