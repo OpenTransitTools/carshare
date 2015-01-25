@@ -29,13 +29,13 @@ def do_static_config(config):
     ''' config the static folders
     '''
     cache_age=3600
-    config.add_static_view('static',   'ott.view:static',          cache_max_age=cache_age)
-    config.add_static_view('html',     'ott.view:static',          cache_max_age=cache_age)
-    config.add_static_view('api-docs', 'ott.view:static/api-docs', cache_max_age=cache_age)
-    config.add_static_view('js',       'ott.view:static/js',       cache_max_age=cache_age)
-    config.add_static_view('css',      'ott.view:static/css',      cache_max_age=cache_age)
-    config.add_static_view('images',   'ott.view:static/images',   cache_max_age=cache_age)
-    config.add_static_view('mock',   '  ott.view:static/mock',     cache_max_age=cache_age)
+    config.add_static_view('static',   'ott.carshare:static',          cache_max_age=cache_age)
+    config.add_static_view('html',     'ott.carshare:static',          cache_max_age=cache_age)
+    config.add_static_view('api-docs', 'ott.carshare:static/api-docs', cache_max_age=cache_age)
+    config.add_static_view('js',       'ott.carshare:static/js',       cache_max_age=cache_age)
+    config.add_static_view('css',      'ott.carshare:static/css',      cache_max_age=cache_age)
+    config.add_static_view('images',   'ott.carshare:static/images',   cache_max_age=cache_age)
+    config.add_static_view('mock',   '  ott.carshare:static/mock',     cache_max_age=cache_age)
 
     # important ... allow .html extension on mako templates
     config.include('pyramid_mako')
@@ -43,7 +43,7 @@ def do_static_config(config):
 
     # internationalization ... @see: locale/subscribers.py for more info
     #config.add_translation_dirs('ott.carshare:locale')
-    #config.add_subscriber('ott.view.locale.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
+    #config.add_subscriber('ott.VIEWview.locale.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
     #config.add_subscriber('ott.view.locale.subscribers.add_localizer', 'pyramid.events.NewRequest')
 
 @subscriber(ApplicationCreated)

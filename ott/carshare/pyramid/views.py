@@ -51,7 +51,7 @@ def new_request_subscriber(event):
     '''
     log.debug("new request called -- request is 'started'")
     request = event.request
-    request.model = get_model(request)
+    #request.model = get_model(request)
     settings = request.registry.settings
     request.add_finished_callback(cleanup)
 
@@ -77,7 +77,6 @@ def cleanup(request):
        3. I could do random cleanup tasks like close database connections, etc... 
     '''
     log.debug("cleanup called -- request is 'finished'")
-
 
 def forward_request(request, path, query_string=None, extra_params=None):
     # http://ride.trimet.org?mapit=I&submit&${plan['params']['map_planner']}
