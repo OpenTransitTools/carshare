@@ -8,23 +8,24 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 requires = [
     'argparse',
     'pyramid',
-    'pyramid_debugtoolbar',
+    #'pyramid_debugtoolbar',
     'waitress',
     'simplejson',
     'geojson',
-    'geoalchemy',
+    'sqlalchemy == 0.8.6', 
+    'geoalchemy>=0.7.2'
     'setuptools',
 ]
+
+extras_require = dict(
+    dev=[],
+)
 
 #
 # eggs you need for development, but not production
 #
-dev_extras = (
-    'zc.buildout',
-    'coverage>=3.5.2',
-    'fabric>=1.4.3',
-    'zest.releaser>=3.37',
-)
+if sys.version_info[:2] < (2, 7):
+    requires.extend(['argparse>=1.2.1', 'unittest2>=0.5.1'])
 
 
 setup(
@@ -38,19 +39,24 @@ setup(
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
     ],
-    author='Frank Purcell',
-    author_email='ott@frankpurcell.com',
+    author="Open Transit Tools",
+    author_email="info@opentransittools.org",
+    dependency_links=[
+        'git+https://github.com/OpenTransitTools/utils.git#egg=ott.utils-0.1.0',
+    ],
+    license="Mozilla-derived (http://opentransittools.com)",
     url='http://opentransittools.com',
-    keywords='carshare',
+    keywords='ott, otp, gtfs, gtfsdb, data, database, services, transit',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     install_requires=requires,
+    extras_require=extras_require,
     tests_require=requires,
-    test_suite="ott.carshare",
-    extras_require=dict(dev=dev_extras),
+    test_suite="ott.carshare.tests",
     entry_points="""\
         [paste.app_factory]
-        main = ott.carshare:main
+        [console_scripts]
+        loader = ott.carshare.loader:main
     """,
 )
