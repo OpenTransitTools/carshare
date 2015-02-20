@@ -14,7 +14,7 @@ from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
 LOC_PARAM='lat=45.5&long=-122.5&lat_delta=1.0&lng_delta=1.0'
 TEST_LOC_PARAM='lat=45.5&long=-122.5&lat_delta=0.7&lng_delta=0.11'
-
+# NEW https://api.zipcar.com/v0/locations?lat=45.5&lng=-122.5&lat_delta=3&lng_delta=3
 
 class ZipcarPodsAndVehicles():
     '''  TO LOAD Zipcar stuff is a 3-step process:
@@ -25,9 +25,9 @@ class ZipcarPodsAndVehicles():
 
     def __init__(self, db, key, zipcar_domain, loc=LOC_PARAM):
         # would like to be able to overwrite the folling via config file for testing o
-        self.pod_url_template = "{0}/api/2.0/locations.json?{2}"
-        self.vlist_url_template = "{0}/api/2.0/locations/{2}/vehicles.json"
-        self.vehicle_url_template = "{0}/api/2.0/vehicles/{2}.json"
+        self.pod_url_template = "{0}/v0/locations.json?{2}"
+        self.vlist_url_template = "{0}/v0/locations/{2}/vehicles.json"
+        self.vehicle_url_template = "{0}/v0/vehicles/{2}.json"
         self.min_num_vehicles = 2
 
         self.key = key
