@@ -25,12 +25,14 @@ class ZipcarPodsAndVehicles():
 
     def __init__(self, db, key, zipcar_domain, loc=LOC_PARAM):
         # would like to be able to overwrite the folling via config file for testing o
-        self.pod_url_template = "{0}/v0/locations.json?{2}"
-        self.vlist_url_template = "{0}/v0/locations/{2}/vehicles.json"
-        self.vehicle_url_template = "{0}/v0/vehicles/{2}.json"
+        self.pod_url_template = "{0}/api/2.1/locations.json?{2}"
+        self.vlist_url_template = "{0}/api/2.1/locations/{2}/vehicles.json"
+        self.vehicle_url_template = "{0}/api/2.1/vehicles/{2}.json"
         self.min_num_vehicles = 2
 
         self.key = key
+
+        print self.pod_url_template
 
         pods = self.get_pods(key, zipcar_domain, loc)
         vehicles = self.get_vehicles(key, zipcar_domain, pods)
