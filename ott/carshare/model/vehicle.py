@@ -28,7 +28,7 @@ class Vehicle(Base):
         raise NotImplementedError("Please implement this method")
 
 
-    def update_position(self, session, lat, lon, address=None, neighborhood=None, time_span=144):
+    def update_position(self, session, lat, lon, address=None, city=None, zipcode=None, neighborhood=None, time_span=144):
         ''' query the db for a position for this vehicle ... if the vehicle appears to be parked in the
             same place as an earlier update, update the 
             NOTE: the position add/update needs to be committed to the db by the caller of this method 
@@ -56,13 +56,13 @@ class Vehicle(Base):
                 p = Position()
                 p.vehicle_id  = self.id
                 p.carshare_co = self.carshare_company
-                p.set_position(lat, lon, address, neighborhood)
+                p.set_position(lat, lon, address, zipcode, city, neighborhood)
                 session.add(p)
                 session.flush()
                 session.commit()
             else:
                 # step 3: update the position record if need be
-                p.set_position(lat, lon, address, neighborhood)
+                p.set_position(lat, lon, address, zipcode, city, neighborhood)
         except:
             print 'EXCEPTION committing position to db for vehicle id={0}, lat={1}, lon={2}'.format(p.vehicle_id, lat, lon)
             session.rollback()

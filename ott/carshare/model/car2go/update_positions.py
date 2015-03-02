@@ -1,4 +1,5 @@
 import json
+import re
 import urllib
 import datetime
 
@@ -27,6 +28,7 @@ class UpdatePositions():
         print self.url
         raw = urllib.urlopen(self.url)
         car2go_data = json.load(raw)
+        house_num_and_zip_re = re.compile('[0-9]*, 9[0-9]+')
 
         # step 2: if we have valid data, update the database
         if car2go_data and len(car2go_data['placemarks']) > 0:
@@ -50,9 +52,9 @@ class UpdatePositions():
         '''
         v = self.get_vehicle(session, vehicle)
         if v is not None:
-            address = vehicle['address']
             lat, lon = self.get_coord(vehicle)
-            v.update_position(session, lat, lon, address)
+            address, city, zip = self.get_address(vehicle)
+            v.update_position(session, lat, lon, address, city, zip)
 
 
     def get_coord(self, vehicle):
@@ -65,6 +67,29 @@ class UpdatePositions():
         except:
             print "Exception"
         return lat,lon
+
+    def get_address(self, vehicle):
+        ''' parse car2go's funky address string SE Lambert St 1683, 97202 Portland or Veterans Memorial Hwy, 97266 Portland
+        '''
+        address = None
+        city = None
+        zipcode = None
+        try:
+            # step 1: get address and assign it to address in case anything goes wrong
+            address = vehicle['address']
+
+            # step 2: parse "SE Lambert St 1683, 97202 Portland" or "Veterans Memorial Hwy, 97266 Portland" into address, zip and city
+            street_n_city = re.split(self.house_num_and_zip_re, address)
+            house_num_n_zip = re.findall(self.house_num_and_zip_re, address)
+            house_num_n_zip = house_num_n_zip[0].split(',')
+            street = street_n_city[0].strip()
+            city = street_n_city[1].strip()
+            house_num = house_num_n_zip[0].strip() | ""
+            zipcode = house_num_n_zip[1].strip()
+            address = "{0} {1}".format(house_num, street)
+        except:
+            print "Exception"
+        return address,city,zipcode
 
 
     def get_vehicle(self, session, vehicle):
