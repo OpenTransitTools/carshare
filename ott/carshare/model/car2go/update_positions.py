@@ -22,13 +22,15 @@ class UpdatePositions():
         ''' call the car2go service, retrieve new positions, and update car position database
         '''
 
+        # step 0: setup
+        self.house_num_and_zip_re = re.compile('[0-9]*, 9[0-9]+')
+
         # step 1: new car2go data
         self.pos = []
         self.url = "{0}?oauth_consumer_key={1}&format={2}&loc={3}".format(svc, key, format, loc)
         print self.url
         raw = urllib.urlopen(self.url)
         car2go_data = json.load(raw)
-        house_num_and_zip_re = re.compile('[0-9]*, 9[0-9]+')
 
         # step 2: if we have valid data, update the database
         if car2go_data and len(car2go_data['placemarks']) > 0:
@@ -84,12 +86,15 @@ class UpdatePositions():
             house_num_n_zip = house_num_n_zip[0].split(',')
             street = street_n_city[0].strip()
             city = street_n_city[1].strip()
-            house_num = house_num_n_zip[0].strip() | ""
             zipcode = house_num_n_zip[1].strip()
-            address = "{0} {1}".format(house_num, street)
-        except:
-            print "Exception"
-        return address,city,zipcode
+            house_num = house_num_n_zip[0].strip()
+            if house_num:
+                address = "{0} {1}".format(house_num, street)
+            else:
+                address = street
+        except Exception, err:
+            print 'Exception: {0}'.format(err)
+        return address,city,vehicle['address']
 
 
     def get_vehicle(self, session, vehicle):
