@@ -8,14 +8,6 @@ from ott.carshare.model.vehicle import Vehicle
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarPod
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
-# PODs: /api/2.0/locations.json?lat=45.5&long=-122.5&lat_delta=1.0&lng_delta=1.0
-# VEHICLE LIST: /api/2.0/locations/89042307/vehicles.json
-# VEHICLE DETAILS:/api/2.0/vehicles/513127255.json 
-
-LOC_PARAM='lat=45.5&long=-122.5&lat_delta=1.0&lng_delta=1.0'
-TEST_LOC_PARAM='lat=45.5&long=-122.5&lat_delta=0.7&lng_delta=0.11'
-# NEW https://api.zipcar.com/v0/locations?lat=45.5&lng=-122.5&lat_delta=3&lng_delta=3
-
 class ZipcarPodsAndVehicles():
     '''  TO LOAD Zipcar stuff is a 3-step process:
             1. svc to load pods
@@ -178,7 +170,6 @@ class ZipcarPodsAndVehicles():
         '''
           "locations": [
           {
-
               "location_id": 95724,
               "display_name": "355 Binney St - Kendall Cinema",
               "address": {
