@@ -192,4 +192,12 @@ class ZipcarPodsAndVehicles():
 
         return pods
 
+def main():
+    from pprint import pprint
+    json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory.json')
+    data = json.load(json_data)
+    pprint(data)
+    json_data.close()
 
+if __name__ == '__main__':
+    main()
