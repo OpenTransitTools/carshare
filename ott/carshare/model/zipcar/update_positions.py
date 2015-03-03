@@ -158,25 +158,6 @@ class ZipcarPodsAndVehicles():
 
 
     def get_pods(self, key, zipcar_domain, loc):
-        '''
-        {
-            locations: 
-            [
-            {
-                location:
-                {
-                    location_id: 68890170,
-                    address_id: 68890167,
-                    description: "SE 50th/Belmont",
-                    directions: "<p class="Detail">This Zipcar is located in the first on-street parking space west of 50th Avenue on the south (eastbound) side of SE Belmont Street.</p>",
-                    private_directions: "<p class="Detail">This Zipcar is located in the first on-street parking space west of 50th Avenue on the south (eastbound) side of SE Belmont Street.</p>",
-                    public_transit_url: null,
-                    public_transit_stop: "translation missing: en-US.68890170.public_transit_stop"
-                }
-            },
-            ]
-        }
-        '''
         pod_url = self.pod_url_template.format(zipcar_domain, key, loc)
         raw = urllib.urlopen(pod_url)
         pod_list = json.load(raw)
@@ -192,11 +173,52 @@ class ZipcarPodsAndVehicles():
 
         return pods
 
+    @classmethod
+    def parse_pods(cls, locations):
+        '''
+          "locations": [
+          {
+
+              "location_id": 95724,
+              "display_name": "355 Binney St - Kendall Cinema",
+              "address": {
+                "street": "355 Binney St",
+                "city": "Cambridge",
+                "region_name": "Massachusetts",
+                "postal_code": "02139",
+                "country_code": "US"
+              },
+              "coordinates": {
+                "lat": 42.3673905200087,
+                "lng": -71.0897461574591
+              },
+              "num_vehicles": 8,
+              "products": [
+                {
+                  "type": "standard",
+                  "label": "Zipcars"
+                }
+              ],
+              "vehicles": [ { ... }, {...}]
+          }]
+        '''
+        pods = []
+        for p in locations:
+            id = pod_data['location_id']
+            pod = ZipcarPod(id)
+            pod.set_attributes(pod_data)
+            pods.append(pod)
+
+        return pods
+
 def main():
     from pprint import pprint
     json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory.json')
     data = json.load(json_data)
-    pprint(data)
+    #pprint(data)
+    pods = ZipcarPodsAndVehicles.parse_pods(data['locations'])
+    print pods
+
     json_data.close()
 
 if __name__ == '__main__':
