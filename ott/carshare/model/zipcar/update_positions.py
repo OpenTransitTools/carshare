@@ -203,10 +203,10 @@ class ZipcarPodsAndVehicles():
           }]
         '''
         pods = []
-        for p in locations:
-            id = pod_data['location_id']
+        for l in locations:
+            id = l['location_id']
             pod = ZipcarPod(id)
-            pod.set_attributes(pod_data)
+            pod.set_attributes(l)
             pods.append(pod)
 
         return pods
@@ -217,7 +217,7 @@ def main():
     data = json.load(json_data)
     #pprint(data)
     pods = ZipcarPodsAndVehicles.parse_pods(data['locations'])
-    print pods
+    print pods[0].__dict__
 
     json_data.close()
 
