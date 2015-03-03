@@ -94,7 +94,7 @@ class UpdatePositions():
                 address = street
         except Exception, err:
             print 'Exception: {0}'.format(err)
-        return address,city,vehicle['address']
+        return address,city,zipcode
 
 
     def get_vehicle(self, session, vehicle):
