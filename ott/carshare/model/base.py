@@ -11,6 +11,8 @@ class _Base(object):
         try:
             ret_val = dict[id]
         except:
+            #try:
+            #    ret_val = dict id
             pass
         return ret_val
 
