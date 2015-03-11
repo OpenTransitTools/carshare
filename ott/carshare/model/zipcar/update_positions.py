@@ -10,10 +10,11 @@ from ott.utils import object_utils
 from ott.carshare.model.position import Position
 from ott.carshare.model.vehicle import Vehicle
 from ott.carshare.model.base import Base
+from ott.carshare.model.update_base import UpdateBase
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarPod
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
-class ZipcarPodsAndVehicles():
+class UpdatePositions(UpdateBase):
     '''  TO LOAD Zipcar stuff is a 3-step process:
             1. svc to load pods
             2. svc to find vehicle ids at pods
@@ -222,6 +223,10 @@ def main():
     print pods[0].__dict__
 
     json_data.close()
+
+def main():
+    for child in Base.__subclasses__():
+        print child.__name__
 
 if __name__ == '__main__':
     main()
