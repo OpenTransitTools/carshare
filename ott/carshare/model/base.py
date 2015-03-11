@@ -76,5 +76,4 @@ class _Base(object):
         return session
 
 
-
 Base = declarative_base(cls=_Base)

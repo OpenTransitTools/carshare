@@ -6,7 +6,7 @@ import datetime
 from ott.carshare.model.vehicle import Vehicle
 from ott.carshare.model.car2go.car2go_vehicle import Car2GoVehicle
 from ott.carshare.model.position import Position
-
+from ott.carshare.model.update_controller import UpdateController
 
 # car2go API: https://code.google.com/p/car2go/wiki/index_v2_1
 # 
@@ -16,7 +16,7 @@ from ott.carshare.model.position import Position
 
 VEHICLES_URL="https://www.car2go.com/api/v2.1/vehicles"
 
-class UpdatePositions():
+class UpdatePositions(UpdateController):
 
     def __init__(self, db, key, svc=VEHICLES_URL, loc='Portland', format='json'):
         ''' call the car2go service, retrieve new positions, and update car position database
