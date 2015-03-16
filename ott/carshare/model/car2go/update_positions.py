@@ -51,6 +51,8 @@ class UpdatePositions(UpdateController):
     @classmethod
     def update(cls, db, args):
         print __file__
+        ret_val = UpdatePositions(db, args.key)
+        return ret_val
 
     def append_pos(self, session, vehicle):
         ''' get vehicle from db, then update its position (or update timestamp if vehicle is parked)

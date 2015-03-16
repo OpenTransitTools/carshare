@@ -21,7 +21,7 @@ class UpdatePositions(UpdateController):
             3. vehicle detail svc
     '''
 
-    def __init__(self, db, key, zipcar_domain, loc):
+    def __init__(self, db, key, zipcar_domain, loc='Portland'):
         # would like to be able to overwrite the folling via config file for testing o
         self.pod_url_template = "{0}/api/2.1/locations.json?{2}"
         self.vlist_url_template = "{0}/api/2.1/locations/{2}/vehicles.json"
@@ -40,6 +40,10 @@ class UpdatePositions(UpdateController):
     @classmethod
     def update(cls, db, args):
         print __file__
+        ret_val = None
+        if args.zipcar:
+            ret_val = UpdatePositions(db, args.key, args.zipcar)
+        return ret_val
 
     def update_zipcar_db(self, db, pods, vehicles):
         ''' NOTE: key parameter is being passed around, since that will eventually be needed for Zipcar

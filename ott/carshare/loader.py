@@ -64,8 +64,7 @@ def main():
     db = Database(args.url, args.schema)
     if args.create:
         db.create()
-    u = UpdateController()
-    u.update_children(db, args)
+    UpdateController().update_children(db, args)
 
 if __name__ == '__main__':
     main()
