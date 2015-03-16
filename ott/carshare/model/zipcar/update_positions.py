@@ -37,6 +37,9 @@ class UpdatePositions(UpdateController):
         if len(vehicles) > self.min_num_vehicles:
             self.update_zipcar_db(db, pods, vehicles)
 
+    @classmethod
+    def update(cls, db, args):
+        print __file__
 
     def update_zipcar_db(self, db, pods, vehicles):
         ''' NOTE: key parameter is being passed around, since that will eventually be needed for Zipcar
