@@ -18,11 +18,7 @@ VEHICLES_URL="https://www.car2go.com/api/v2.1/vehicles"
 
 class UpdatePositions(UpdateController):
 
-    def __init__(self, db, keys):
-        key = keys.key
-        svc=VEHICLES_URL
-        loc='Portland'
-        format='json'
+    def __init__(self, db, key, svc=VEHICLES_URL, loc='Portland', format='json'):
         ''' call the car2go service, retrieve new positions, and update car position database
         '''
 
