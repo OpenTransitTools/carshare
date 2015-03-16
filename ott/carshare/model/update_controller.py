@@ -10,7 +10,7 @@ class UpdateController(object):
         pass
 
     @classmethod
-    def update_children(cls):
+    def update_children(cls, db, args):
         ''' update children
         '''
         from ott.carshare.model.update_controller import UpdateController
@@ -18,6 +18,7 @@ class UpdateController(object):
         import ott.carshare.model.car2go.update_positions
 
         for child in UpdateController.__subclasses__():
+            
             print child.__name__
 
 def main():

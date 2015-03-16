@@ -2,13 +2,7 @@ import argparse
 import os
 
 from ott.carshare.model.database import Database
-from ott.carshare.model.position import Position
-from ott.carshare.model.car2go.car2go_vehicle   import Car2GoVehicle
-from ott.carshare.model.car2go.update_positions import UpdatePositions
-from ott.carshare.model.zipcar.update_positions import ZipcarPodsAndVehicles
-
-from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarPod
-from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
+from ott.carshare.model.update_controller import UpdateController
 
 
 import logging
@@ -70,9 +64,8 @@ def main():
     db = Database(args.url, args.schema)
     if args.create:
         db.create()
-    u = UpdatePositions(db, args.key)
-    if args.zipcar is not None:
-        z = ZipcarPodsAndVehicles(db, args.key, args.zipcar)
+    u = UpdateController()
+    u.update_children(db, args)
 
 if __name__ == '__main__':
     main()
