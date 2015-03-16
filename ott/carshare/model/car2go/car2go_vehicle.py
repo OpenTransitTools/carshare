@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, ForeignKey
+from sqlalchemy import Column, Index, Integer, Numeric, Boolean, String, DateTime, ForeignKey
 
 from ott.carshare.model.vehicle import Vehicle
 
@@ -13,6 +13,7 @@ class Car2GoVehicle(Vehicle):
     exterior = Column(String)
     fuel = Column(String)
     engineType = Column(String)
+    hasBikeRack = Column(Boolean)
 
 
     def __init__(self, id, name=None):
@@ -31,4 +32,8 @@ class Car2GoVehicle(Vehicle):
         self.fuel = self.get_attribute(dict, 'fuel')
         self.engineType = self.get_attribute(dict, 'engineType')
         self.updated = datetime.datetime.now()
+
+        if "BIKE RACK" in self.name:
+            self.hasBikeRack = True
+            self.name = self.name.strip("BIKE RACK").strip()
 
