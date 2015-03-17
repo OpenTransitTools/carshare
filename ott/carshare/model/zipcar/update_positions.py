@@ -106,7 +106,8 @@ class UpdatePositions(UpdateController):
             pods.append(pod)
 
             # make vehicles
-            v = ZipcarVehicle.make_vehicles(l)
+            v = None
+            v = ZipcarVehicle.make_vehicles(id, l)
             if v:
                 vehicles.extend(v)
 
