@@ -1,6 +1,8 @@
 import datetime
 from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, ForeignKey
 
+from ott.utils import object_utils
+
 from ott.carshare.model.base import Base
 from ott.carshare.model.vehicle import Vehicle
 from ott.carshare.model.position import Position
@@ -29,6 +31,17 @@ class ZipcarVehicle(Vehicle):
         self.pod = pod_id
         self.carshare_company = self.identity
 
+    @classmethod
+    def make_vehicles(cls, pod_data):
+        '''
+        '''
+        ret_val = []
+
+        vehicles = object_utils.dval_list(pod_data, 'vehicles')
+        for v in vehicles:
+            nv = Vehicle()
+            ret_val.append(nv)
+        return ret_val
 
     def set_attributes(self, dict):
         ''' copy known values from the dict into this object, then update the timestamp

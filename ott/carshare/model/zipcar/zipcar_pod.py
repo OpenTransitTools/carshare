@@ -22,19 +22,6 @@ class ZipcarPod(Base):
         if pod_data:
             self.set_attributes(pod_data)
 
-
-    def make_vehicles(self, pod_data):
-        '''
-        '''
-        ret_val = []
-
-        vehicles = object_utils.dval_list(pod_data, 'vehicles')
-        for v in vehicles:
-            nv = Vehicle()
-            ret_val.append(nv)
-        return ret_val
-
-
     def set_attributes(self, dict):
         '''
               "location_id": 95724,

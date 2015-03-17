@@ -59,28 +59,68 @@ class UpdatePositions(UpdateController):
               "vehicles": [ { ... }, {...}]
           }]
         '''
-        ret_val = []
+        pods = []
+        vehicles = []
         for l in locations:
             id = object_utils.dval(l, 'location_id')
+
+            # optionally filter by zipcode
             if zip_filter:
                 address = object_utils.dval(l, 'address')
                 zip = object_utils.dval(address, 'postal_code')
                 if not re_utils.contains(zip_filter, zip):
                     print "INFO: skipping record: {} not in Zipcar postal_code {}".format(zip_filter, zip)
                     continue
-            pod = ZipcarPod(id, l)
-            v = pod.make_vehicles(l)
-            ret_val.append(pod)
 
-        return ret_val
+            # make pod
+            pod = ZipcarPod(id, l)
+            pods.append(pod)
+
+            # make vehicles
+            v = ZipcarVehicle.make_vehicles(l)
+            if v:
+                vehicles.extend(v)
+
+        return pods, vehicles
+
+
+    def update_zipcar_db(self, db, pods, vehicles):
+        ''' NOTE: key parameter is being passed around, since that will eventually be needed for Zipcar
+        '''
+        session = db.get_session()
+
+        # step 1: remove old stuff....
+        session.query(ZipcarPod).delete()
+        zlist = session.query(ZipcarVehicle).all()
+        # note: looping through and calling session.delete(z) is the only way I could get SQLAlchemy to delete the FK relational entry to position table.
+        for z in zlist:
+            session.delete(z)
+        session.flush()
+        session.commit()
+
+        # step 2: add pods
+        for p in pods:
+            session.add(p)
+
+        # step 3: add vehicles
+        for v in vehicles:
+            session.add(v)
+            v.update_position(session, v.lat, v.lon, v.address, v.neighborhood)
+
+        # step 3: commit stuff...
+        session.flush()
+        session.commit()
+
+
 
 def main():
     from pprint import pprint
     json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory.json')
     data = json.load(json_data)
     #pprint(data)
-    pods = UpdatePositions.parse_pods(object_utils.dval(data, 'locations'), "^9[78]*")
+    pods, vehicles = UpdatePositions.parse_pods(object_utils.dval(data, 'locations'), "^9[78]*")
     print pods[0].__dict__
+    print vehicles[0].__dict__
 
     json_data.close()
 
