@@ -1,6 +1,8 @@
 import datetime
 from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, ForeignKey
 
+from ott.utils import object_utils
+
 from ott.carshare.model.base import Base
 from ott.carshare.model.vehicle import Vehicle
 from ott.carshare.model.position import Position
@@ -15,8 +17,23 @@ class ZipcarPod(Base):
     created = Column(DateTime, default=datetime.datetime.now())
     updated = Column(DateTime, default=datetime.datetime.now())
 
-    def __init__(self, location_id):
+    def __init__(self, location_id, pod_data=None):
         self.id = location_id
+        if pod_data:
+            self.set_attributes(pod_data)
+
+
+    def make_vehicles(self, pod_data):
+        '''
+        '''
+        ret_val = []
+
+        vehicles = object_utils.dval_list(pod_data, 'vehicles')
+        for v in vehicles:
+            nv = Vehicle()
+            ret_val.append(nv)
+        return ret_val
+
 
     def set_attributes(self, dict):
         '''
