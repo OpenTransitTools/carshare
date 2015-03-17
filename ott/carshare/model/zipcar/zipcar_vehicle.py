@@ -31,14 +31,20 @@ class ZipcarVehicle(Vehicle):
     @classmethod
     def make_vehicles(cls, pod_id, pod_data):
         '''
+            "coordinates": {
+                "lat": 42.3673905200087,
+                "lng": -71.0897461574591
+            },
+
         '''
         ret_val = []
 
         import pdb; pdb.set_trace()
         vehicles = object_utils.dval_list(pod_data, 'vehicles')
+        coords = object_utils.dval(pod_data, 'coordinates')
         for vdata in vehicles:
             vid = object_utils.dval(vdata, 'vehicle_id')
-            zc = ZipcarVehicle(vid, pod_id)
+            zc = ZipcarVehicle(vid, pod_id, coords)
             zc.set_attributes(vdata)
             ret_val.append(zc)
         return ret_val
