@@ -2,6 +2,9 @@ import json
 import re
 import urllib
 import datetime
+import logging
+log = logging.getLogger(__file__)
+
 
 from ott.carshare.model.vehicle import Vehicle
 from ott.carshare.model.car2go.car2go_vehicle import Car2GoVehicle
@@ -71,8 +74,9 @@ class UpdatePositions(UpdateController):
             ll = vehicle['coordinates']
             lon = ll[0]
             lat = ll[1]
-        except:
-            print "Exception"
+        except Exception, err:
+            log.exception('Exception: {0}'.format(err))
+
         return lat,lon
 
     def get_address(self, vehicle):
@@ -98,7 +102,8 @@ class UpdatePositions(UpdateController):
             else:
                 address = street
         except Exception, err:
-            print 'Exception: {0}'.format(err)
+            log.info('Exception: {0}'.format(err))
+
         return address,city,zipcode
 
 
@@ -128,8 +133,7 @@ class UpdatePositions(UpdateController):
 
             v.set_attributes(vehicle)
         except Exception, err:
-            print 'Exception: {0}'.format(err)
-            pass
+            log.exception('Exception: {0}'.format(err))
 
         return v
 

@@ -1,14 +1,10 @@
 import argparse
 import os
+import logging
+log = logging.getLogger(__file__)
 
 from ott.carshare.model.database import Database
 from ott.carshare.model.update_controller import UpdateController
-
-
-import logging
-logging.basicConfig()
-log = logging.getLogger(__file__)
-log.setLevel(logging.INFO)
 
 def init_parser():
     parser = argparse.ArgumentParser(
