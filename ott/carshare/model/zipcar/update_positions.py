@@ -54,11 +54,10 @@ class UpdatePositions(UpdateController):
 
 
     def get_test_data(self):
-        ret_val = None
         json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory.json')
         data = json.load(json_data)
-        #json_data.close()
-        return ret_val
+        json_data.close()
+        return data
 
 
     @classmethod
