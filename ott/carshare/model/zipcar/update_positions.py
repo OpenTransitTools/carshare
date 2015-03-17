@@ -1,3 +1,6 @@
+import logging
+log = logging.getLogger(__file__)
+
 import json
 import urllib
 import datetime
@@ -20,8 +23,15 @@ class UpdatePositions(UpdateController):
             2. svc to find vehicle ids at pods
             3. vehicle detail svc
     '''
-    def __init__(self, db, key, zipcar_domain='', loc='Portland'):
-        print "X"
+
+    def __init__(self, db, zipcar_domain='', zipcode_filter="^9[78]*", loc='Portland'):
+        self.db = db
+        self.pods = None
+        self.vehicles = None
+
+        self.load_zipcar_data(zipcode_filter)
+        self.update_zipcar_db(self.db, self.pods, self.vehicles)
+
 
     @classmethod
     def update(cls, db, args):
@@ -30,6 +40,26 @@ class UpdatePositions(UpdateController):
             print "updating:", __file__
             ret_val = UpdatePositions(db, args.zipcar)
         return ret_val
+
+
+    def load_zipcar_data(self, zipcode_filter):
+        ret_val = None
+
+        try:
+            data = self.get_test_data()
+            data = object_utils.dval(data, 'locations')
+            self.pods, self.vehicles = UpdatePositions.parse_pods(data, zipcode_filter)
+        except Exception, err:
+            log.exception('Exception: {0}'.format(err))
+
+
+    def get_test_data(self):
+        ret_val = None
+        json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory.json')
+        data = json.load(json_data)
+        #json_data.close()
+        return ret_val
+
 
     @classmethod
     def parse_pods(cls, locations, zip_filter=None):
@@ -84,45 +114,51 @@ class UpdatePositions(UpdateController):
         return pods, vehicles
 
 
-    def update_zipcar_db(self, db, pods, vehicles):
+    @classmethod
+    def update_zipcar_db(cls, db, pods, vehicles):
         ''' NOTE: key parameter is being passed around, since that will eventually be needed for Zipcar
         '''
-        session = db.get_session()
+        session = None
+        try:
+            session = db.get_session()
 
-        # step 1: remove old stuff....
-        session.query(ZipcarPod).delete()
-        zlist = session.query(ZipcarVehicle).all()
-        # note: looping through and calling session.delete(z) is the only way I could get SQLAlchemy to delete the FK relational entry to position table.
-        for z in zlist:
-            session.delete(z)
-        session.flush()
-        session.commit()
+            # step 1: remove old stuff....
+            session.query(ZipcarPod).delete()
+            zlist = session.query(ZipcarVehicle).all()
+            # note: looping through and calling session.delete(z) is the only way I could get SQLAlchemy to delete the FK relational entry to position table.
+            for z in zlist:
+                session.delete(z)
+            session.flush()
+            session.commit()
 
-        # step 2: add pods
-        for p in pods:
-            session.add(p)
+            # step 2: add pods
+            for p in pods:
+                session.add(p)
 
-        # step 3: add vehicles
-        for v in vehicles:
-            session.add(v)
-            v.update_position(session, v.lat, v.lon, v.address, v.neighborhood)
+            # step 3: add vehicles
+            for v in vehicles:
+                session.add(v)
+                v.update_position(session, v.lat, v.lon, v.address, v.neighborhood)
 
-        # step 3: commit stuff...
-        session.flush()
-        session.commit()
+        except Exception, err:
+            log.exception('Exception: {0}'.format(err))
+        finally:
+            if session:
+                # step 3: commit stuff...
+                session.flush()
+                session.commit()
+
+
 
 
 
 def main():
     from pprint import pprint
-    json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory.json')
-    data = json.load(json_data)
-    #pprint(data)
-    pods, vehicles = UpdatePositions.parse_pods(object_utils.dval(data, 'locations'), "^9[78]*")
-    print pods[0].__dict__
-    print vehicles[0].__dict__
+    u = UpdatePositions(None, {'zipcar':'BLAH'})
 
-    json_data.close()
+    print u.pods[0].__dict__
+    print u.vehicles[0].__dict__
+
 
 if __name__ == '__main__':
     main()

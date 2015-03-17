@@ -1,9 +1,10 @@
+import logging
+log = logging.getLogger(__file__)
+
 import json
 import re
 import urllib
 import datetime
-import logging
-log = logging.getLogger(__file__)
 
 
 from ott.carshare.model.vehicle import Vehicle
