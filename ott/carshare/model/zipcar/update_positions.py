@@ -19,7 +19,7 @@ from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
 # TODO add these to .config file
 DIRECTORY_URL  = "https://api.zipcar.com/v0/directory?country=US&embed=vehicles"
-ZIPCODE_FILTER = "^9[78]+"
+ZIPCODE_FILTER = "^97"
 LOCATION="Portland"
 
 class UpdatePositions(UpdateController):

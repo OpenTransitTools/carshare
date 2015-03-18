@@ -10,12 +10,12 @@
     {
 
       "location_id": 95724,
-      "display_name": "355 NOT LOADED Binney St - Kendall Cinema",
+      "display_name": "DONT LOAD ME - 355 Binney St - Kendall Cinema",
       "address": {
-        "street": "NOT LOADED 355 Binney St",
+        "street": "355 Binney St",
         "city": "Cambridge",
         "region_name": "Massachusetts",
-        "postal_code": "94139",
+        "postal_code": "92139",
         "country_code": "US"
       },
       "coordinates": {
@@ -31,7 +31,7 @@
       ],
       "vehicles": [
         {
-          "vehicle_id": 1222222448,
+          "vehicle_id": 1179454588,
           "vehicle_name": "Gadsen",
           "make_model": "Volkswagen Golf",
           "style": "5-door",
@@ -62,15 +62,246 @@
               "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
             }
           ]
+        },
+        {
+          "vehicle_id": 1075479740,
+          "vehicle_name": "Mouton",
+          "make_model": "Nissan Frontier Pickup",
+          "style": "Truck",
+          "year": 2013,
+          "hourly_rate": 12.5,
+          "daily_rate": 88,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=723594370&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=723594370&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=723594370"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1302942331,
+          "vehicle_name": "Library",
+          "make_model": "Mitsubishi Lancer",
+          "style": "Sedan",
+          "year": 2014,
+          "hourly_rate": 10.5,
+          "daily_rate": 78,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1302937793&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1302937793&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1302937793"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1346894487,
+          "vehicle_name": "Bruley",
+          "make_model": "BMW X1",
+          "style": "Hatchback",
+          "year": 2015,
+          "hourly_rate": 13,
+          "daily_rate": 93,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1298956229&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1298956229&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1298956229"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1364387562,
+          "vehicle_name": "Tere",
+          "make_model": "Ford Transit Connect",
+          "style": "Minivan",
+          "year": 2014,
+          "hourly_rate": 12.5,
+          "daily_rate": 88,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1311262720&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1311262720&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1311262720"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1355908513,
+          "vehicle_name": "Alonso",
+          "make_model": "Nissan Sentra",
+          "style": "Sedan",
+          "year": 2014,
+          "hourly_rate": 10.5,
+          "daily_rate": 78,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=155321731&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=155321731&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=155321731"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1427881988,
+          "vehicle_name": "Tunes",
+          "make_model": "Cadillac ATS",
+          "style": "4-door",
+          "year": 2015,
+          "hourly_rate": 14.5,
+          "daily_rate": 108,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1339304281&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1339304281&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1339304281"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1420711255,
+          "vehicle_name": "Marsha",
+          "make_model": "Ford Escape Titanium",
+          "style": "SUV",
+          "year": 2014,
+          "hourly_rate": 12,
+          "daily_rate": 93,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1430357381&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1430357381&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1430357381"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
         }
       ]
 
     },
     {
       "location_id": 95706,
-      "display_name": "LOAD ME 18th/California St NW",
+      "display_name": "18th/California St NW",
       "address": {
-        "street": "LOAD 2099 18th Street, NW",
+        "street": "2099 18th Street, NW",
         "city": "Washington",
         "region_name": "District Of Columbia",
         "postal_code": "98000",
@@ -291,12 +522,12 @@
     {
 
       "location_id": 95724,
-      "display_name": "LOAD ME Kendall Cinema",
+      "display_name": "355 Binney St - Kendall Cinema",
       "address": {
-        "street": "LOADED XXX 355 Binney St",
+        "street": "355 Binney St",
         "city": "Cambridge",
         "region_name": "Massachusetts",
-        "postal_code": "OR 97139",
+        "postal_code": "02139",
         "country_code": "US"
       },
       "coordinates": {
@@ -580,12 +811,12 @@
     },
     {
       "location_id": 95724,
-      "display_name": "LOAD ME",
+      "display_name": "355 Binney St - Kendall Cinema",
       "address": {
-        "street": "LOADED YYY 355 Binney St",
+        "street": "355 Binney St",
         "city": "Cambridge",
         "region_name": "Massachusetts",
-        "postal_code": "97000",
+        "postal_code": "9700",
         "country_code": "US"
       },
       "coordinates": {
@@ -601,7 +832,7 @@
       ],
       "vehicles": [
         {
-          "vehicle_id": 11793333454588,
+          "vehicle_id": 1179454588,
           "vehicle_name": "Gadsen",
           "make_model": "Volkswagen Golf",
           "style": "5-door",
@@ -619,6 +850,237 @@
             "thumb": "http://media.zipcar.com/images/model-image?model_id=980237689&mode=thumb",
             "mobile": "http://media.zipcar.com/images/model-image?model_id=980237689&mode=med",
             "desktop": "http://media.zipcar.com/images/model-image?model_id=980237689"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1075479740,
+          "vehicle_name": "Mouton",
+          "make_model": "Nissan Frontier Pickup",
+          "style": "Truck",
+          "year": 2013,
+          "hourly_rate": 12.5,
+          "daily_rate": 88,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=723594370&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=723594370&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=723594370"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1302942331,
+          "vehicle_name": "Library",
+          "make_model": "Mitsubishi Lancer",
+          "style": "Sedan",
+          "year": 2014,
+          "hourly_rate": 10.5,
+          "daily_rate": 78,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1302937793&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1302937793&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1302937793"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1346894487,
+          "vehicle_name": "Bruley",
+          "make_model": "BMW X1",
+          "style": "Hatchback",
+          "year": 2015,
+          "hourly_rate": 13,
+          "daily_rate": 93,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1298956229&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1298956229&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1298956229"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1364387562,
+          "vehicle_name": "Tere",
+          "make_model": "Ford Transit Connect",
+          "style": "Minivan",
+          "year": 2014,
+          "hourly_rate": 12.5,
+          "daily_rate": 88,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1311262720&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1311262720&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1311262720"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1355908513,
+          "vehicle_name": "Alonso",
+          "make_model": "Nissan Sentra",
+          "style": "Sedan",
+          "year": 2014,
+          "hourly_rate": 10.5,
+          "daily_rate": 78,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=155321731&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=155321731&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=155321731"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1427881988,
+          "vehicle_name": "Tunes",
+          "make_model": "Cadillac ATS",
+          "style": "4-door",
+          "year": 2015,
+          "hourly_rate": 14.5,
+          "daily_rate": 108,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1339304281&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1339304281&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1339304281"
+          },
+          "actions": [
+            {
+              "type": "learn_more",
+              "label": "Learn More",
+              "url": "http://www.zipcar.com/?mobile_p=0&utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            },
+            {
+              "type": "reserve",
+              "label": "Reserve",
+              "url": "https://members.zipcar.com/reservations?utm_source=partner&utm_medium=api&utm_campaign=partner_app&utm_content=version0"
+            }
+          ]
+        },
+        {
+          "vehicle_id": 1420711255,
+          "vehicle_name": "Marsha",
+          "make_model": "Ford Escape Titanium",
+          "style": "SUV",
+          "year": 2014,
+          "hourly_rate": 12,
+          "daily_rate": 93,
+          "currency_code": "USD",
+          "product_types": [
+            {
+              "type": "standard",
+              "label": "Zipcars"
+            }
+          ],
+          "images": {
+            "thumb": "http://media.zipcar.com/images/model-image?model_id=1430357381&mode=thumb",
+            "mobile": "http://media.zipcar.com/images/model-image?model_id=1430357381&mode=med",
+            "desktop": "http://media.zipcar.com/images/model-image?model_id=1430357381"
           },
           "actions": [
             {
