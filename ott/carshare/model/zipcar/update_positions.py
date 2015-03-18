@@ -138,7 +138,9 @@ class UpdatePositions(UpdateController):
             # step 3: add vehicles
             for v in vehicles:
                 session.add(v)
-                v.update_position(session, v.lat, v.lon, v.address, v.neighborhood)
+
+                #import pdb; pdb.set_trace()
+                v.update_position(session, v.lat, v.lon, v.street, v.city, v.state, v.zip, 1)
 
         except Exception, err:
             log.exception('Exception: {0}'.format(err))

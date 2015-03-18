@@ -32,6 +32,9 @@ class ZipcarVehicle(Vehicle):
     url_info = Column(String)
     url_reserve = Column(String)
 
+    street = city = state = zip = None
+    lat = lon = None
+
     def __init__(self, vehicle_id, pod_id):
         self.id  = vehicle_id
         self.pod = pod_id
@@ -99,12 +102,6 @@ class ZipcarVehicle(Vehicle):
         self.hourly = object_utils.dval(vehicle_data, 'hourly_rate')
         self.daily  = object_utils.dval(vehicle_data, 'daily_rate')
 
-        #import pdb; pdb.set_trace()
-        coord   = object_utils.dval(pod_data, 'coordinates')
-        address = object_utils.dval(pod_data, 'address')
-        self.lat, self.lon  = geo_utils.get_coord_from_dict(coord)
-        self.street, self.city, self.state, self.zip = geo_utils.get_address_from_dict(address)
-
         images = object_utils.dval(vehicle_data, 'images')
         self.img_thumb = object_utils.dval(images, 'thumb')
         self.img_small = object_utils.dval(images, 'mobile')
@@ -115,8 +112,14 @@ class ZipcarVehicle(Vehicle):
             type = object_utils.dval(u, 'type')
             if type == 'reserve':
                 self.url_reserve = object_utils.dval(u, 'url')
-            elif type == 'learn_more':
+            if type == 'learn_more':
                 self.url_info = object_utils.dval(u, 'url')
+
+        coord = object_utils.dval(pod_data, 'coordinates')
+        address = object_utils.dval(pod_data, 'address')
+        self.lat, self.lon  = geo_utils.get_coord_from_dict(coord)
+        self.street, self.city, self.state, self.zip = geo_utils.get_address_from_dict(address)
+
 
         self.updated = datetime.datetime.now()
 
