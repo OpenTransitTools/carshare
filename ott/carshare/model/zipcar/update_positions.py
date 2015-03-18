@@ -17,8 +17,10 @@ from ott.carshare.model.update_controller import UpdateController
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarPod
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
-DIRECTORY_URL = "https://api.zipcar.com/v0/directory?country=US&embed=vehicles"
-
+# TODO add these to .config file
+DIRECTORY_URL  = "https://api.zipcar.com/v0/directory?country=US&embed=vehicles"
+ZIPCODE_FILTER = "^9[78]+"
+LOCATION="Portland"
 
 class UpdatePositions(UpdateController):
     '''  TO LOAD Zipcar stuff is a 3-step process:
@@ -27,12 +29,13 @@ class UpdatePositions(UpdateController):
             3. vehicle detail svc
     '''
 
-    def __init__(self, db, zipcar_domain='', zipcode_filter="^9[78]*", loc='Portland'):
+    def __init__(self, db, zipcode_filter=ZIPCODE_FILTER, loc=LOCATION):
         self.db = db
         self.pods = None
         self.vehicles = None
+        self.zipcode_filter = zipcode_filter
 
-        self.load_zipcar_data(zipcode_filter)
+        self.load_zipcar_data()
         self.update_zipcar_db(self.db, self.pods, self.vehicles)
 
 
@@ -41,35 +44,32 @@ class UpdatePositions(UpdateController):
         ret_val = None
         if args.zipcar:
             print "updating:", __file__
-            ret_val = UpdatePositions(db, args.zipcar)
+            ret_val = UpdatePositions(db)
         return ret_val
 
-
-    def load_zipcar_data(self, zipcode_filter):
-        ret_val = None
-
+    def load_zipcar_data(self):
         try:
             data = self.get_data()
             data = object_utils.dval(data, 'locations')
-            self.pods, self.vehicles = UpdatePositions.parse_pods(data, zipcode_filter)
+            self.pods, self.vehicles = UpdatePositions.parse_pods(data, self.zipcode_filter)
         except Exception, err:
             log.exception('Exception: {0}'.format(err))
-
 
     def get_data(self):
         '''
         '''
+        return self.get_test_data()
+
         url = DIRECTORY_URL
         raw = urllib.urlopen(url)
         json_data = json.load(raw)
         return json_data
 
     def get_test_data(self):
-        json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory.json')
+        json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory_old.json')
         data = json.load(json_data)
         json_data.close()
         return data
-
 
     @classmethod
     def parse_pods(cls, locations, zip_filter=None):
@@ -109,7 +109,7 @@ class UpdatePositions(UpdateController):
                 address = object_utils.dval(l, 'address')
                 zip = object_utils.dval(address, 'postal_code')
                 if not re_utils.contains(zip_filter, zip):
-                    log.info("skipping record: {} not in Zipcar postal_code {}".format(zip_filter, zip)
+                    log.warn("skipping record: {} not in Zipcar postal_code {}".format(zip_filter, zip))
                     continue
 
             # make pod
@@ -148,12 +148,11 @@ class UpdatePositions(UpdateController):
             # step 3: add vehicles
             for v in vehicles:
                 session.add(v)
-                #import pdb; pdb.set_trace()
                 v.update_position(session, v.lat, v.lon, v.street, v.city, v.state, v.zip, 1)
 
-
         except Exception, err:
-            log.exception('Exception: {0}'.format(err))
+            #log.exception('Exception: {0}'.format(err))
+            pass
         finally:
             if session:
                 # step 3: commit stuff...
@@ -166,7 +165,7 @@ class UpdatePositions(UpdateController):
 
 def main():
     from pprint import pprint
-    u = UpdatePositions(None, {'zipcar':'BLAH'})
+    u = UpdatePositions(None)
 
     print u.pods[0].__dict__
     print u.vehicles[0].__dict__
