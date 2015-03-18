@@ -58,8 +58,7 @@ class UpdatePositions(UpdateController):
     def get_data(self):
         '''
         '''
-        return self.get_test_data()
-
+        #return self.get_test_data()
         url = DIRECTORY_URL
         raw = urllib.urlopen(url)
         json_data = json.load(raw)
