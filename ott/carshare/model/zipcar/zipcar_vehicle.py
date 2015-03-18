@@ -2,6 +2,7 @@ import datetime
 from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, ForeignKey
 
 from ott.utils import object_utils
+from ott.utils import geo_utils
 
 from ott.carshare.model.base import Base
 from ott.carshare.model.vehicle import Vehicle
@@ -18,10 +19,18 @@ class ZipcarVehicle(Vehicle):
     id = Column(String, ForeignKey('vehicles.id', ondelete='CASCADE'), primary_key=True)
     pod = Column(String, ForeignKey('zipcar_pods.id'), nullable=True)
 
-    make = Column(String)
     model = Column(String)
+    style = Column(String)
+    year  = Column(String)
+    hourly = Column(String)
+    daily  = Column(String)
 
+    img_thumb = Column(String)
+    img_small = Column(String)
+    img_large = Column(String)
 
+    url_info = Column(String)
+    url_reserve = Column(String)
 
     def __init__(self, vehicle_id, pod_id):
         self.id  = vehicle_id
@@ -39,17 +48,15 @@ class ZipcarVehicle(Vehicle):
         '''
         ret_val = []
 
-        import pdb; pdb.set_trace()
         vehicles = object_utils.dval_list(pod_data, 'vehicles')
-        coords = object_utils.dval(pod_data, 'coordinates')
-        for vdata in vehicles:
-            vid = object_utils.dval(vdata, 'vehicle_id')
-            zc = ZipcarVehicle(vid, pod_id, coords)
-            zc.set_attributes(vdata)
+        for vehicle_data in vehicles:
+            vid = object_utils.dval(vehicle_data, 'vehicle_id')
+            zc = ZipcarVehicle(vid, pod_id)
+            zc.set_attributes(pod_data, vehicle_data)
             ret_val.append(zc)
         return ret_val
 
-    def set_attributes(self, dict):
+    def set_attributes(self, pod_data, vehicle_data):
         ''' copy known values from the dict into this object, then update the timestamp
         {
           "vehicle_id": 1179454588,
@@ -85,19 +92,31 @@ class ZipcarVehicle(Vehicle):
           ]
         }
         '''
-        self.name  = self.get_attribute(dict, 'name')
-        self.model = self.get_attribute(dict, 'make_model')
-        self.style = self.get_attribute(dict, 'style')
-        self.year  = self.get_attribute(dict, 'year')
-        self.hourly  = self.get_attribute(dict, 'hourly_rate')
-        self.daily   = self.get_attribute(dict, 'daily_rate')
+        self.name   = object_utils.dval(vehicle_data, 'vehicle_name')
+        self.model  = object_utils.dval(vehicle_data, 'make_model')
+        self.style  = object_utils.dval(vehicle_data, 'style')
+        self.year   = object_utils.dval(vehicle_data, 'year')
+        self.hourly = object_utils.dval(vehicle_data, 'hourly_rate')
+        self.daily  = object_utils.dval(vehicle_data, 'daily_rate')
 
-        self.lat = self.get_attribute(dict, 'latitude')
-        self.lon = self.get_attribute(dict, 'longitude')
-        self.address = self.get_attribute(dict, 'location_description')
-        n = self.get_attribute(dict, 'neighborhoods')
-        if n is not None and len(n) > 0:
-            self.neighborhood = n[0] 
+        #import pdb; pdb.set_trace()
+        coord   = object_utils.dval(pod_data, 'coordinates')
+        address = object_utils.dval(pod_data, 'address')
+        self.lat, self.lon  = geo_utils.get_coord_from_dict(coord)
+        self.street, self.city, self.state, self.zip = geo_utils.get_address_from_dict(address)
+
+        images = object_utils.dval(vehicle_data, 'images')
+        self.img_thumb = object_utils.dval(images, 'thumb')
+        self.img_small = object_utils.dval(images, 'mobile')
+        self.img_large = object_utils.dval(images, 'desktop')
+
+        urls = object_utils.dval_list(vehicle_data, 'actions')
+        for u in urls:
+            type = object_utils.dval(u, 'type')
+            if type == 'reserve':
+                self.url_reserve = object_utils.dval(u, 'url')
+            elif type == 'learn_more':
+                self.url_info = object_utils.dval(u, 'url')
 
         self.updated = datetime.datetime.now()
 
