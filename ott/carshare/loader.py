@@ -48,7 +48,8 @@ def init_parser():
         '--zipcar', 
         '-zipcar',
         '-z',
-        help="zipcar domain"
+        action="store_true",
+        help="load/update zipcar data"
     )
     args = parser.parse_args()
     return args

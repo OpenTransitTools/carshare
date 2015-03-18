@@ -17,6 +17,9 @@ from ott.carshare.model.update_controller import UpdateController
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarPod
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
+DIRECTORY_URL = "https://api.zipcar.com/v0/directory?country=US&embed=vehicles"
+
+
 class UpdatePositions(UpdateController):
     '''  TO LOAD Zipcar stuff is a 3-step process:
             1. svc to load pods
@@ -46,12 +49,20 @@ class UpdatePositions(UpdateController):
         ret_val = None
 
         try:
-            data = self.get_test_data()
+            data = self.get_data()
             data = object_utils.dval(data, 'locations')
             self.pods, self.vehicles = UpdatePositions.parse_pods(data, zipcode_filter)
         except Exception, err:
             log.exception('Exception: {0}'.format(err))
 
+
+    def get_data(self):
+        '''
+        '''
+        url = DIRECTORY_URL
+        raw = urllib.urlopen(url)
+        json_data = json.load(raw)
+        return json_data
 
     def get_test_data(self):
         json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory.json')
@@ -98,7 +109,7 @@ class UpdatePositions(UpdateController):
                 address = object_utils.dval(l, 'address')
                 zip = object_utils.dval(address, 'postal_code')
                 if not re_utils.contains(zip_filter, zip):
-                    print "INFO: skipping record: {} not in Zipcar postal_code {}".format(zip_filter, zip)
+                    log.info("skipping record: {} not in Zipcar postal_code {}".format(zip_filter, zip)
                     continue
 
             # make pod
@@ -137,8 +148,6 @@ class UpdatePositions(UpdateController):
             # step 3: add vehicles
             for v in vehicles:
                 session.add(v)
-                #session.flush()
-                #session.commit()
                 #import pdb; pdb.set_trace()
                 v.update_position(session, v.lat, v.lon, v.street, v.city, v.state, v.zip, 1)
 
