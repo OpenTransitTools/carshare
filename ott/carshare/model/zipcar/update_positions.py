@@ -108,7 +108,7 @@ class UpdatePositions(UpdateController):
                 address = object_utils.dval(l, 'address')
                 zip = object_utils.dval(address, 'postal_code')
                 if not re_utils.contains(zip_filter, zip):
-                    log.warn("skipping record: {} not in Zipcar postal_code {}".format(zip_filter, zip))
+                    log.debug("skipping record: {} not in Zipcar postal_code {}".format(zip_filter, zip))
                     continue
 
             # make pod
