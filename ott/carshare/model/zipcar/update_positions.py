@@ -106,7 +106,6 @@ class UpdatePositions(UpdateController):
             pods.append(pod)
 
             # make vehicles
-            v = None
             v = ZipcarVehicle.make_vehicles(id, l)
             if v:
                 vehicles.extend(v)
@@ -138,8 +137,8 @@ class UpdatePositions(UpdateController):
             # step 3: add vehicles
             for v in vehicles:
                 session.add(v)
-                session.commit()
-                session.flush()
+                #session.flush()
+                #session.commit()
                 #import pdb; pdb.set_trace()
                 v.update_position(session, v.lat, v.lon, v.street, v.city, v.state, v.zip, 1)
 
@@ -151,7 +150,7 @@ class UpdatePositions(UpdateController):
                 # step 3: commit stuff...
                 session.flush()
                 session.commit()
-
+                session.flush()
 
 
 

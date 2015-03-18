@@ -22,7 +22,7 @@ class Position(Base):
     address = Column(String)
     city = Column(String)
     zipcode = Column(String)
-    neighborhood = Column(String)
+    state = Column(String)
     lat = Column(Numeric(12,9), nullable=False)
     lon = Column(Numeric(12,9), nullable=False)
     created = Column(DateTime, default=datetime.datetime.now())
@@ -43,7 +43,7 @@ class Position(Base):
     vehicle = relation(Vehicle, backref=backref('vehicles', order_by=id, cascade="all, delete-orphan"))
     '''
 
-    def set_position(self, lat, lon, address=None, zipcode=None, city=None, neighborhood=None):
+    def set_position(self, lat, lon, address=None, city=None, state=None, zipcode=None):
         ''' set the lat / lon of this object, and update the timestamp and 'latest' status (to True)
         '''
         self.lat = lat
@@ -53,9 +53,9 @@ class Position(Base):
             pass
 
         self.address = address
-        self.zipcode = zipcode
         self.city = city
-        self.neighborhood = neighborhood
+        self.state = state
+        self.zipcode = zipcode
         self.updated = datetime.datetime.now()
         self.latest  = True
 

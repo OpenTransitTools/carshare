@@ -65,7 +65,7 @@ class UpdatePositions(UpdateController):
         if v is not None:
             lat, lon = self.get_coord(vehicle)
             address, city, zip = self.get_address(vehicle)
-            v.update_position(session, lat, lon, address, city, zip)
+            v.update_position(session, lat, lon, address, city, None, zip)
 
 
     def get_coord(self, vehicle):
