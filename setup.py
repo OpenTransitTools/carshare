@@ -11,25 +11,26 @@ requires = [
     'waitress',
     'pyramid',
     'pyramid_mako',
+    'pyramid_swagger',
     'mako',
     'pillow',
     'simplejson',
     'geojson',
-    'sqlalchemy == 0.8.6', 
-    'geoalchemy >= 0.7.2',
-    'pyramid_swagger',
+    'geoalchemy2>=0.2.4',
+    'sqlalchemy>=0.9',
 ]
 
+dev_extras = []
+postgresql_extras = ['psycopg2>=2.4.2']
+
 extras_require = dict(
-    dev=[],
+    dev=dev_extras,
+    postgresql=postgresql_extras,
 )
 
-#
-# eggs you need for development, but not production
-#
-if sys.version_info[:2] < (2, 7):
-    requires.extend(['argparse>=1.2.1', 'unittest2>=0.5.1'])
-
+if sys.version_info[:2] <= (2, 6):
+    requires.append('argparse>=1.2.1')
+    extras_require['dev'].append('unittest2')
 
 setup(
     name='ott.carshare',
