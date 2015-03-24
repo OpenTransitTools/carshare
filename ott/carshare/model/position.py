@@ -1,10 +1,11 @@
 import datetime
 import geojson
 
-from geoalchemy import GeometryColumn, GeometryDDL, Point, WKTSpatialElement
+from geoalchemy2 import Geometry
+from geoalchemy2.elements import WKTElement
 from sqlalchemy import Column, Index, Integer, Numeric, String, Boolean, DateTime, ForeignKey, ForeignKeyConstraint
 from sqlalchemy.sql import func, and_
-from sqlalchemy.orm import relation, backref
+from sqlalchemy.orm import deferred, relationship
 
 from ott.carshare.model.base import Base
 
@@ -69,19 +70,18 @@ class Position(Base):
 
 
     @classmethod
-    def add_geometry_column(cls):
-        cls.geom = GeometryColumn(Point(2))
-        GeometryDDL(cls.__table__)
+    def add_geometry_column(cls, srid=4326):
+        cls.geom = deferred(Column(Geometry(geometry_type='POINT', srid=srid)))
 
 
     @classmethod
-    def add_geom_to_dict(cls, row):
+    def add_geom_to_dict(cls, row, srid=4326):
         wkt = 'SRID=%s;POINT(%s %s)' %(
-            SRID,
+            srid,
             row['stop_lon'],
             row['stop_lat']
         )
-        row['geom'] = WKTSpatialElement(wkt)
+        row['geom'] = WKTElement(wkt)
 
 
     @classmethod
