@@ -16,7 +16,8 @@ class UpdateController(object):
     def update_children(cls, db, args):
         ''' update children
         '''
-        from ott.carshare.model.update_controller import UpdateController
+
+        # include all children here, so the __sublcasses__ reflection works
         import ott.carshare.model.zipcar.update_positions
         import ott.carshare.model.car2go.update_positions
 

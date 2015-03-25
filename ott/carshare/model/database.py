@@ -29,6 +29,9 @@ class Database(object):
         event.listen(self.engine, 'connect', Database.connection)
 
     def create(self):
+        '''
+        '''
+
         # NOTE have to include all the table objects for the db to be created properly
         from ott.carshare.model.position import Position
         from ott.carshare.model.car2go.car2go_vehicle   import Car2GoVehicle

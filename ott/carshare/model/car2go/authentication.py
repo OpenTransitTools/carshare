@@ -4,7 +4,7 @@ import urlparse
 import time
 
 # settings for the local test consumer
-SERVER = 'maps1'
+SERVER = 'maps6'
 PORT = 80
 
 # fake urls for the test server (matches ones in server.py)
@@ -15,15 +15,13 @@ AUTHORIZATION_URL = 'https://www.car2go.com/api/authorize'
 CALLBACK_URL = ''
 RESOURCE_URL = ''
 
-
 # key and secret granted by the service provider for this consumer application - same as the MockOAuthDataStore
 CONSUMER_KEY = '<your key here>'
 CONSUMER_SECRET = '<your secret here>'
 
 def run_example():
 
-    import pdb
-  #  pdb.set_trace()
+    #import pdb; pdb.set_trace()
 
     consumer = oauth.Consumer(CONSUMER_KEY, CONSUMER_SECRET)
     client = oauth.Client(consumer)

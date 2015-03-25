@@ -116,7 +116,5 @@ class ZipcarVehicle(Vehicle):
         address = object_utils.dval(pod_data, 'address')
         self.lat, self.lon  = geo_utils.get_coord_from_dict(coord)
         self.street, self.city, self.state, self.zip = geo_utils.get_address_from_dict(address)
-
-
         self.updated = datetime.datetime.now()
 

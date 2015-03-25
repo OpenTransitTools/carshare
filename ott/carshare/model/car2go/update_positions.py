@@ -4,10 +4,7 @@ log = logging.getLogger(__file__)
 import json
 import re
 import urllib
-import datetime
 
-
-from ott.carshare.model.vehicle import Vehicle
 from ott.carshare.model.car2go.car2go_vehicle import Car2GoVehicle
 from ott.carshare.model.position import Position
 from ott.carshare.model.update_controller import UpdateController

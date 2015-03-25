@@ -128,7 +128,8 @@ class UpdatePositions(UpdateController):
             # step 1: remove old stuff....
             session.query(ZipcarPod).delete()
             zlist = session.query(ZipcarVehicle).all()
-            # note: looping through and calling session.delete(z) is the only way I could get SQLAlchemy to delete the FK relational entry to position table.
+            # note: looping through and calling session.delete(z) is the only way I could get SQLAlchemy to delete the
+            #       FK relational entry to position table.
             for z in zlist:
                 session.delete(z)
             session.flush()
