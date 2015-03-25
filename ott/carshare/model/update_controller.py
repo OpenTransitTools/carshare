@@ -3,7 +3,6 @@
     step 2: put the import to that class file in the method update_children() below
 '''
 
-from ott.carshare.model.base import Base
 
 class UpdateController(object):
     def __init__(self):

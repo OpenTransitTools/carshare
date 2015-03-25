@@ -4,10 +4,7 @@ from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, Foreig
 from ott.utils import object_utils
 from ott.utils import geo_utils
 
-from ott.carshare.model.base import Base
 from ott.carshare.model.vehicle import Vehicle
-from ott.carshare.model.position import Position
-from ott.carshare.model.zipcar.zipcar_pod import ZipcarPod
 
 class ZipcarVehicle(Vehicle):
     '''

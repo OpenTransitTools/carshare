@@ -1,10 +1,8 @@
 import math
-import inspect
 
 from sqlalchemy import create_engine, event
 from sqlalchemy.pool import QueuePool
 from sqlalchemy.orm import sessionmaker
-#from sqalchemy.func import cos, acos
 
 from ott.carshare.model.base import Base
 
@@ -34,7 +32,7 @@ class Database(object):
         # NOTE have to include all the table objects for the db to be created properly
         from ott.carshare.model.position import Position
         from ott.carshare.model.car2go.car2go_vehicle   import Car2GoVehicle
-        from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarPod
+        from ott.carshare.model.zipcar.zipcar_pod import ZipcarPod
         from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
         Base.metadata.drop_all(bind=self.engine)

@@ -3,18 +3,12 @@ log = logging.getLogger(__file__)
 
 import json
 import urllib
-import datetime
-import traceback
-
 
 from ott.utils import re_utils
 from ott.utils import object_utils
 
-from ott.carshare.model.position import Position
-from ott.carshare.model.vehicle import Vehicle
-from ott.carshare.model.base import Base
 from ott.carshare.model.update_controller import UpdateController
-from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarPod
+from ott.carshare.model.zipcar.zipcar_pod import ZipcarPod
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
 # TODO add these to .config file

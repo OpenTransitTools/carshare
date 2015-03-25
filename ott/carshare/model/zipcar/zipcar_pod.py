@@ -1,11 +1,7 @@
 import datetime
 from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, ForeignKey
 
-from ott.utils import object_utils
-
 from ott.carshare.model.base import Base
-from ott.carshare.model.vehicle import Vehicle
-from ott.carshare.model.position import Position
 
 class ZipcarPod(Base):
     '''
