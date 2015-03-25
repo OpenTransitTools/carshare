@@ -38,6 +38,7 @@ class UpdatePositions(UpdateController):
         ret_val = None
         if args.zipcar:
             print "updating:", __file__
+            #import pdb; pdb.set_trace()
             ret_val = UpdatePositions(db)
         return ret_val
 
