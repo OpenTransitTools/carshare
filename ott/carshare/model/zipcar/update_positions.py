@@ -32,7 +32,6 @@ class UpdatePositions(UpdateController):
         self.load_zipcar_data()
         self.update_zipcar_db(self.db, self.pods, self.vehicles)
 
-
     @classmethod
     def update(cls, db, args):
         ret_val = None
@@ -46,7 +45,10 @@ class UpdatePositions(UpdateController):
         try:
             data = self.get_data()
             data = object_utils.dval(data, 'locations')
-            self.pods, self.vehicles = UpdatePositions.parse_pods(data, self.zipcode_filter)
+            if data:
+                self.pods, self.vehicles = UpdatePositions.parse_pods(data, self.zipcode_filter)
+            else:
+                raise Exception('could not load any Zipcode data {0}', data)
         except Exception, err:
             log.exception('Exception: {0}'.format(err))
 

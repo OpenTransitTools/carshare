@@ -56,6 +56,7 @@ def init_parser():
 
 
 def main():
+    #import pdb; pdb.set_trace()
     args = init_parser()
     print args
     db = Database(args.url, args.schema)
