@@ -50,8 +50,8 @@ class Vehicle(Base):
                             Position.lon == lon,
                         ) 
                     ).first()
-        except:
-            print 'EX'
+        except Exception, err:
+            log.exception('Exception: {0}'.format(err))
 
         # step 2: we didn't find an existing position in the Position history table, so add a new one
         try: 
@@ -66,8 +66,8 @@ class Vehicle(Base):
             else:
                 # step 3: update the position record if need be
                 p.set_position(lat, lon, address, city, state, zipcode)
-        except:
-            print 'EXCEPTION committing position to db for vehicle id={0}, lat={1}, lon={2}'.format(p.vehicle_id, lat, lon)
+        except Exception, err:
+            log.exception('Exception: {0}, committing position to db for vehicle id={1}, lat={2}, lon={3}'.format(p.vehicle_id, lat, lon))
             #session.rollback()
 
         return p
