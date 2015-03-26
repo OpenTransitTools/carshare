@@ -37,7 +37,6 @@ class UpdatePositions(UpdateController):
         ret_val = None
         if args.zipcar:
             print "updating:", __file__
-            #import pdb; pdb.set_trace()
             ret_val = UpdatePositions(db)
         return ret_val
 
@@ -48,7 +47,7 @@ class UpdatePositions(UpdateController):
             if data:
                 self.pods, self.vehicles = UpdatePositions.parse_pods(data, self.zipcode_filter)
             else:
-                raise Exception('could not load any Zipcode data {0}', data)
+                raise Exception('could not load any Zipcode data {0}'.format(data))
         except Exception, err:
             log.exception('Exception: {0}'.format(err))
 
@@ -113,6 +112,7 @@ class UpdatePositions(UpdateController):
             pods.append(pod)
 
             # make vehicles
+            #import pdb; pdb.set_trace()
             v = ZipcarVehicle.make_vehicles(id, l)
             if v:
                 vehicles.extend(v)
@@ -148,7 +148,7 @@ class UpdatePositions(UpdateController):
                 v.update_position(session, v.lat, v.lon, v.street, v.city, v.state, v.zip, 1)
 
         except Exception, err:
-            #log.exception('Exception: {0}'.format(err))
+            log.exception('Exception: {0}'.format(err))
             pass
         finally:
             if session:

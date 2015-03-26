@@ -1,3 +1,6 @@
+import logging
+log = logging.getLogger(__file__)
+
 import abc
 import datetime
 from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime
