@@ -62,7 +62,7 @@ class Position(Base):
 
 
     @classmethod
-    def clear_latest_column(cls, session, car_co='car2go'):
+    def clear_latest_column(cls, session, car_co=''):
         ''' set all latest=True positions to false (for a give car company)
         '''
         session.query(Position).filter(and_(Position.latest == True, Position.carshare_co == car_co)
@@ -95,7 +95,7 @@ class Position(Base):
             el = (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6
             properties = {
                 'position_id' : p.id,
-                'vehicle_id'  : p.vehicle_id,
+                'vehicle_id'  : str(p.vehicle_id),
                 'carshare_co' : p.carshare_co,
                 'created'     : p.created.isoformat(),
                 'updated'     : p.updated.isoformat(),

@@ -12,20 +12,12 @@ def init_parser():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument(
-        '--key', 
+        '--car2go_key',
+        '--key',
         '-key',
         '-k',
-        required='true',
         help="car2go consumer key (id)"
     )
-    '''
-    parser.add_argument(
-        '--secret', 
-        '-secret',
-        '-ss',
-        help="car2go 'shared secret' code"
-    )
-    '''
     parser.add_argument(
         '--url', 
         '-url',

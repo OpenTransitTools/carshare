@@ -37,19 +37,27 @@ class Vehicle(Base):
             NOTE: the position add/update needs to be committed to the db by the caller of this method 
         '''
 
+        # step 0: cast some variables
+        pid = str(self.id)
+        lat = float(lat)
+        lon = float(lon)
+
+
         # step 1: get position object from db ...criteria is to find last position 
         #          update within an hour, and the car hasn't moved lat,lon
         hours_ago = datetime.datetime.now() - datetime.timedelta(hours=time_span)
         p = None
         try:
-            p = session.query(Position).filter(
+            q = session.query(Position).filter(
                        and_(
-                            Position.vehicle_id == self.id,
+                            Position.vehicle_id == pid,
                             Position.updated >= hours_ago,
                             Position.lat == lat,
                             Position.lon == lon,
                         ) 
-                    ).first()
+                    )
+            p = q.first()
+            #import pdb; pdb.set_trace()
         except Exception, err:
             log.exception('Exception: {0}'.format(err))
 
@@ -57,8 +65,8 @@ class Vehicle(Base):
         try: 
             if p is None:
                 p = Position()
-                p.vehicle_id  = self.id
-                p.carshare_co = self.carshare_company
+                p.vehicle_id  = pid
+                p.carshare_co = str(self.carshare_company)
                 p.set_position(lat, lon, address, city, state, zipcode)
                 session.add(p)
             else:

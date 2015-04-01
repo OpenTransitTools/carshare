@@ -55,14 +55,14 @@ class UpdatePositions(UpdateController):
     def get_data(self):
         '''
         '''
-        #return self.get_test_data()
+        return self.get_test_data()
         url = DIRECTORY_URL
         raw = urllib.urlopen(url)
         json_data = json.load(raw)
         return json_data
 
     def get_test_data(self):
-        json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory_old.json')
+        json_data=open('/java/DEV/carshare/ott/carshare/model/zipcar/test/directory.json')
         data = json.load(json_data)
         json_data.close()
         return data
