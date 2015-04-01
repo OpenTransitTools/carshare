@@ -111,6 +111,7 @@ class UpdatePositions(UpdateController):
             pod = ZipcarPod(id, l)
             pods.append(pod)
 
+
             # make vehicles
             #import pdb; pdb.set_trace()
             v = ZipcarVehicle.make_vehicles(id, l)
@@ -135,16 +136,26 @@ class UpdatePositions(UpdateController):
             #       FK relational entry to position table.
             for z in zlist:
                 session.delete(z)
-            session.flush()
+
             session.commit()
+            session.flush()
 
             # step 2: add pods
             for p in pods:
                 session.add(p)
 
+            session.commit()
+            session.flush()
+
             # step 3: add vehicles
             for v in vehicles:
                 session.add(v)
+
+            session.commit()
+            session.flush()
+
+            # step 3: add vehicles
+            for v in vehicles:
                 v.update_position(session, v.lat, v.lon, v.street, v.city, v.state, v.zip, 1)
 
         except Exception, err:
@@ -153,7 +164,6 @@ class UpdatePositions(UpdateController):
         finally:
             if session:
                 # step 3: commit stuff...
-                session.flush()
                 session.commit()
                 session.flush()
 

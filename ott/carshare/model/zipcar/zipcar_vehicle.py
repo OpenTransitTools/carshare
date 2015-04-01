@@ -33,8 +33,8 @@ class ZipcarVehicle(Vehicle):
     lat = lon = None
 
     def __init__(self, vehicle_id, pod_id):
-        self.id  = vehicle_id
-        self.pod = pod_id
+        self.id  = str(vehicle_id)
+        self.pod = str(pod_id)
         self.carshare_company = self.identity
 
     @classmethod

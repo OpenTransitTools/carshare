@@ -61,14 +61,18 @@ class Vehicle(Base):
                 p.carshare_co = self.carshare_company
                 p.set_position(lat, lon, address, city, state, zipcode)
                 session.add(p)
-                session.flush()
-                session.commit()
             else:
                 # step 3: update the position record if need be
                 p.set_position(lat, lon, address, city, state, zipcode)
         except Exception, err:
             log.exception('Exception: {0}, committing position to db for vehicle id={1}, lat={2}, lon={3}'.format(err, p.vehicle_id, lat, lon))
             session.rollback()
+        finally:
+            try:
+                session.commit()
+                session.flush()
+            except:
+                session.rollback()
 
         return p
 
