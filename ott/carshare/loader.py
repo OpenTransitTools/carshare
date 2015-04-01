@@ -18,12 +18,14 @@ def init_parser():
         required='true',
         help="car2go consumer key (id)"
     )
+    '''
     parser.add_argument(
         '--secret', 
         '-secret',
         '-ss',
         help="car2go 'shared secret' code"
     )
+    '''
     parser.add_argument(
         '--url', 
         '-url',
@@ -32,13 +34,20 @@ def init_parser():
         help="(geo) database url ala dialect+driver://user:password@host/dbname[?key=value..] ... or simply"
     )
     parser.add_argument(
-        '--schema', 
+        '--schema',
         '-schema',
         '-s',
         help="database schema"
     )
     parser.add_argument(
-        '--create', 
+        '--geo',
+        '-geo',
+        '-g',
+        action="store_true",
+        help="add geometry columns"
+    )
+    parser.add_argument(
+        '--create',
         '-create',
         '-c',
         action="store_true",
@@ -59,7 +68,7 @@ def main():
     #import pdb; pdb.set_trace()
     args = init_parser()
     print args
-    db = Database(args.url, args.schema)
+    db = Database(args.url, args.schema, args.geo)
     if args.create:
         db.create()
     UpdateController().update_children(db, args)

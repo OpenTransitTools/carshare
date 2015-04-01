@@ -71,7 +71,8 @@ class Position(Base):
 
     @classmethod
     def add_geometry_column(cls, srid=4326):
-        cls.geom = deferred(Column(Geometry(geometry_type='POINT', srid=srid)))
+        print "GEOOOOO"
+        cls.geom = Column(Geometry(geometry_type='POINT', srid=srid))
 
 
     @classmethod

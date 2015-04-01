@@ -67,10 +67,18 @@ class _Base(object):
 
     @classmethod
     def set_schema(cls, schema):
-        cls.__table__.schema = schema
+        # if this is a database table, set the schema
+        if hasattr(cls, '__table__'):
+            cls.__table__.schema = schema
+
+        # bit of recursion to hit sub classes
+        for c in cls.__subclasses__():
+            c.set_schema(schema)
 
 
-    def get_session(self):
+
+
+def get_session(self):
         Session = sessionmaker(bind=self.db)
         session = Session()
         return session
