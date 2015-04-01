@@ -54,7 +54,7 @@ class UpdatePositions(UpdateController):
         ret_val = None
         if args.car2go_key:
             print __file__
-            ret_val = UpdatePositions(db, args.key)
+            ret_val = UpdatePositions(db, args.car2go_key)
         return ret_val
 
     def append_pos(self, session, vehicle):
