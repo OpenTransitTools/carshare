@@ -67,8 +67,8 @@ class Vehicle(Base):
                 # step 3: update the position record if need be
                 p.set_position(lat, lon, address, city, state, zipcode)
         except Exception, err:
-            log.exception('Exception: {0}, committing position to db for vehicle id={1}, lat={2}, lon={3}'.format(p.vehicle_id, lat, lon))
-            #session.rollback()
+            log.exception('Exception: {0}, committing position to db for vehicle id={1}, lat={2}, lon={3}'.format(err, p.vehicle_id, lat, lon))
+            session.rollback()
 
         return p
 
