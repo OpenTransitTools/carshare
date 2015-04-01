@@ -8,6 +8,7 @@ from ott.utils import re_utils
 from ott.utils import object_utils
 
 from ott.carshare.model.update_controller import UpdateController
+from ott.carshare.model.position import Position
 from ott.carshare.model.zipcar.zipcar_pod import ZipcarPod
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
@@ -130,12 +131,13 @@ class UpdatePositions(UpdateController):
             session = db.get_session()
 
             # step 1: remove old stuff....
-            session.query(ZipcarPod).delete()
             zlist = session.query(ZipcarVehicle).all()
             # note: looping through and calling session.delete(z) is the only way I could get SQLAlchemy to delete the
             #       FK relational entry to position table.
             for z in zlist:
                 session.delete(z)
+
+            session.query(ZipcarPod).delete()
 
             session.commit()
             session.flush()
@@ -154,7 +156,8 @@ class UpdatePositions(UpdateController):
             session.commit()
             session.flush()
 
-            # step 3: add vehicles
+            # step 4: add position data to each vehicle
+            Position.clear_latest_column(session, ZipcarVehicle.identity)
             for v in vehicles:
                 v.update_position(session, v.lat, v.lon, v.street, v.city, v.state, v.zip, 1)
 
