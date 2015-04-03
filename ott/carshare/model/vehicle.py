@@ -39,8 +39,8 @@ class Vehicle(Base):
 
         # step 0: cast some variables
         pid = str(self.id)
-        lat = float(lat)
-        lon = float(lon)
+        lat = round(lat, 6)
+        lon = round(lon, 6)
 
 
         # step 1: get position object from db ...criteria is to find last position 
