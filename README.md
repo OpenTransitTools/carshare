@@ -10,7 +10,7 @@ carshare
  - cd carshare
  - buildout
  - git update-index --assume-unchanged .pydevproject .*/*.xml *.iml
- - bin/python ott/carshare/loader.py -k __ your car2go key __ -z -c -u sqlite:///carshare.db (or postgresql+psycopg2://postgres@localhost:5432/postgres -s carshare)
+ - bin/loader -k __ your car2go key __ -z -c -u sqlite:///carshare.db (or postgresql+psycopg2://postgres@localhost:5432/postgres -s carshare)
  - bin/pserve development.ini
  - http://localhost:31113/static/test.html
  
