@@ -2,7 +2,6 @@ import datetime
 import geojson
 
 from geoalchemy2 import Geometry
-from geoalchemy2.elements import WKTElement
 from sqlalchemy import Column, Index, Integer, Numeric, String, Boolean, DateTime, ForeignKey, ForeignKeyConstraint
 from sqlalchemy.sql import func, and_
 from sqlalchemy.orm import deferred, relationship
@@ -50,8 +49,7 @@ class Position(Base):
         self.lat = lat
         self.lon = lon
         if hasattr(self, 'geom'):
-            print "implement geom setting..."
-            pass
+            self.add_geom_to_dict(self.__dict__)
 
         self.address = address
         self.city = city
@@ -71,19 +69,11 @@ class Position(Base):
 
     @classmethod
     def add_geometry_column(cls, srid=4326):
-        print "GEOOOOO"
         cls.geom = Column(Geometry(geometry_type='POINT', srid=srid))
-
 
     @classmethod
     def add_geom_to_dict(cls, row, srid=4326):
-        wkt = 'SRID=%s;POINT(%s %s)' %(
-            srid,
-            row['stop_lon'],
-            row['stop_lat']
-        )
-        row['geom'] = WKTElement(wkt)
-
+        row['geom'] = 'SRID={0};POINT({1} {2})'.format(srid, row['lon'], row['lat'])
 
     @classmethod
     def to_geojson_features(cls, positions):
