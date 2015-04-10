@@ -22,7 +22,6 @@ class _Base(object):
         c = cls(**clean_dict)
         return c
 
-
     def to_dict(self):
         ''' convert a SQLAlchemy object into a dict that is serializable to JSON
         ''' 
@@ -40,7 +39,6 @@ class _Base(object):
                 ret_val[k] = v.isoformat()
 
         return ret_val
-
 
     @classmethod
     def to_dict_list(cls, list):
@@ -64,7 +62,6 @@ class _Base(object):
             engine.execute(table.delete())
         engine.execute(table.insert(), records)
 
-
     @classmethod
     def set_schema(cls, schema):
         # if this is a database table, set the schema
@@ -75,6 +72,15 @@ class _Base(object):
         for c in cls.__subclasses__():
             c.set_schema(schema)
 
+    @classmethod
+    def set_geometry(cls, is_geospatial=False):
+        if is_geospatial:
+            if hasattr(cls, 'add_geometry_column'):
+                cls.add_geometry_column()
+
+            # bit of recursion to hit sub classes
+            for c in cls.__subclasses__():
+                c.set_geometry(is_geospatial)
 
 
 

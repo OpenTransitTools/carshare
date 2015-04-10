@@ -20,23 +20,16 @@ class Database(object):
         self.schema = schema
         self.is_geospatial = is_geospatial
         Base.set_schema(schema)
-
-        '''
-            if is_geospatial and hasattr(cls, 'add_geometry_column'):
-                pass
-                #cls.add_geometry_column()
-        '''
+        Base.set_geometry(is_geospatial)
 
         self.engine = create_engine(url, poolclass=QueuePool, pool_size=pool_size)
         event.listen(self.engine, 'connect', Database.connection)
-
 
     def create(self):
         '''
         '''
         Base.metadata.drop_all(bind=self.engine)
         Base.metadata.create_all(bind=self.engine)
-
 
     def get_session(self):
         Session = sessionmaker(bind=self.engine)
