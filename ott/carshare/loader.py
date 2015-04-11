@@ -19,11 +19,12 @@ def init_parser():
         help="car2go consumer key (id)"
     )
     parser.add_argument(
-        '--url', 
+        '--database_url',
         '-url',
         '-u',
+        '-d',
         required='true',
-        help="(geo) database url ala dialect+driver://user:password@host/dbname[?key=value..] ... or simply"
+        help="(geo) database url ala dialect+driver://user:password@host/dbname[?key=value..]"
     )
     parser.add_argument(
         '--schema',
@@ -46,7 +47,7 @@ def init_parser():
         help="drop / create database tables for vehicles"
     )
     parser.add_argument(
-        '--zipcar', 
+        '--zipcar',
         '-zipcar',
         '-z',
         action="store_true",
