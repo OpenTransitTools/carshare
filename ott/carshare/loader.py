@@ -61,7 +61,7 @@ def main():
     #import pdb; pdb.set_trace()
     args = init_parser()
     print args
-    db = Database(args.url, args.schema, args.geo)
+    db = Database(args.database_url, args.schema, args.geo)
     if args.create:
         db.create()
     UpdateController().update_children(db, args)
