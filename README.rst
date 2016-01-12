@@ -1,5 +1,11 @@
+========
 carshare
 ========
+
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+   :alt: Join the chat at https://gitter.im/OpenTransitTools/gtfsdb
+   :target: https://gitter.im/OpenTransitTools/gtfsdb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 
 * Command-line program that reads carshare vehicles locations, and loads them into a database fronted by SQLAlchemy.
 * Controller code that exposes car position data in a geojson format.
