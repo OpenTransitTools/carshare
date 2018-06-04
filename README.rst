@@ -23,7 +23,4 @@ carshare
 * Carshare in Portland, OR -- http://www.portlandoregon.gov/transportation/article/390417
  - car2go
  - Zipcar
- - Getaround
- - Relay Rides
- - U-Hall Carshare ucarshare.com
 
