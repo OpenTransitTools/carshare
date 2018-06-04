@@ -19,6 +19,7 @@ RESOURCE_URL = ''
 CONSUMER_KEY = '<your key here>'
 CONSUMER_SECRET = '<your secret here>'
 
+
 def run_example():
 
     #import pdb; pdb.set_trace()
@@ -143,9 +144,11 @@ def Xrun_example():
     print 'non-oauth parameters: %s' % params
     pause()
 
+
 def pause():
     print ''
     time.sleep(1)
+
 
 if __name__ == '__main__':
 #    run_example()

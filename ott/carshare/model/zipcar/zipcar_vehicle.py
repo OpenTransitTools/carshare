@@ -6,9 +6,10 @@ from ott.utils import geo_utils
 
 from ott.carshare.model.vehicle import Vehicle
 
+
 class ZipcarVehicle(Vehicle):
-    '''
-    '''
+    """
+    """
     identity = 'zipcar'
     __tablename__ = 'zipcar_vehicles'
     __mapper_args__ = {'polymorphic_identity': identity}
@@ -39,13 +40,13 @@ class ZipcarVehicle(Vehicle):
 
     @classmethod
     def make_vehicles(cls, pod_id, pod_data):
-        '''
+        """
             "coordinates": {
                 "lat": 42.3673905200087,
                 "lng": -71.0897461574591
             },
 
-        '''
+        """
         ret_val = []
 
         vehicles = object_utils.dval_list(pod_data, 'vehicles')
@@ -57,7 +58,7 @@ class ZipcarVehicle(Vehicle):
         return ret_val
 
     def set_attributes(self, pod_data, vehicle_data):
-        ''' copy known values from the dict into this object, then update the timestamp
+        """ copy known values from the dict into this object, then update the timestamp
         {
           "vehicle_id": 1179454588,
           "vehicle_name": "Gadsen",
@@ -91,7 +92,7 @@ class ZipcarVehicle(Vehicle):
             }
           ]
         }
-        '''
+        """
         self.name   = object_utils.dval(vehicle_data, 'vehicle_name')
         self.model  = object_utils.dval(vehicle_data, 'make_model')
         self.style  = object_utils.dval(vehicle_data, 'style')

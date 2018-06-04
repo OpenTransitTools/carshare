@@ -3,9 +3,10 @@ from sqlalchemy import Column, Index, Integer, Numeric, String, DateTime, Foreig
 
 from ott.carshare.model.base import Base
 
+
 class ZipcarPod(Base):
-    '''
-    '''
+    """
+    """
     __tablename__ = 'zipcar_pods'
 
     id = Column(String, primary_key=True, nullable=False)
@@ -19,7 +20,7 @@ class ZipcarPod(Base):
             self.set_attributes(pod_data)
 
     def set_attributes(self, dict):
-        '''
+        """
               "location_id": 95724,
               "display_name": "355 Binney St - Kendall Cinema",
               "address": {
@@ -41,7 +42,7 @@ class ZipcarPod(Base):
                 }
               ],
               "vehicles": [ { ... }, {...}]
-        '''
+        """
         self.description = self.get_attribute(dict, 'display_name')
         self.directions = self.get_attribute(dict, 'directions')
         self.transit_url = self.get_attribute(dict, 'public_transit_url')

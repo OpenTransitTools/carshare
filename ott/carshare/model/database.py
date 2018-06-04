@@ -11,10 +11,10 @@ logging.basicConfig()
 log = logging.getLogger(__file__)
 log.setLevel(logging.INFO)
 
-class Database(object):
-    '''
-    '''
 
+class Database(object):
+    """
+    """
     def __init__(self, url='sqlite:///carshare.db', schema=None, is_geospatial=False, pool_size=20):
         self.url = url
         self.schema = schema
@@ -26,8 +26,8 @@ class Database(object):
         event.listen(self.engine, 'connect', Database.connection)
 
     def create(self):
-        '''
-        '''
+        """
+        """
         Base.metadata.drop_all(bind=self.engine)
         Base.metadata.create_all(bind=self.engine)
 
@@ -44,9 +44,10 @@ class Database(object):
     tcnt=1
     @classmethod
     def radians(cls, x):
-        ''' used for testing...see 'connection' method below
-            raw_con.create_function("radians", 1, Database.radians)
-        '''
+        """ 
+        used for testing...see 'connection' method below
+        raw_con.create_function("radians", 1, Database.radians)
+        """
         Database.tcnt = Database.tcnt + 1
         print Database.tcnt
         v = math.radians(x)
@@ -54,12 +55,13 @@ class Database(object):
 
     @classmethod
     def connection(cls, raw_con, connection_record):
-        ''' This method is called for each new SQLAlchemy database connection. I'm using it as a connection decorator to
-            add math routines to a sqllite database
+        """ 
+        This method is called for each new SQLAlchemy database connection. I'm using it as a connection decorator to
+        add math routines to a sqllite database
 
-            @note: check out the call to (above): event.listen(self.engine, 'connect', Database.connection)
-            @see:  http://docs.sqlalchemy.org/en/rel_0_8/core/events.html#sqlalchemy.events.PoolEvents
-        '''
+        @note: check out the call to (above): event.listen(self.engine, 'connect', Database.connection)
+        @see:  http://docs.sqlalchemy.org/en/rel_0_8/core/events.html#sqlalchemy.events.PoolEvents
+        """
         if 'sqlite' in type(raw_con).__module__:
             raw_con.create_function("sin",     1, math.sin)
             raw_con.create_function("cos",     1, math.cos)

@@ -17,12 +17,13 @@ DIRECTORY_URL  = "https://api.zipcar.com/v0/directory?country=US&embed=vehicles"
 ZIPCODE_FILTER = "(^|\s)(97|98660)"
 LOCATION="Portland"
 
+
 class UpdatePositions(UpdateController):
-    '''  TO LOAD Zipcar stuff is a 3-step process:
+    """  TO LOAD Zipcar stuff is a 3-step process:
             1. svc to load pods
             2. svc to find vehicle ids at pods
             3. vehicle detail svc
-    '''
+    """
 
     def __init__(self, db, zipcode_filter=ZIPCODE_FILTER, loc=LOCATION):
         self.db = db
@@ -49,12 +50,12 @@ class UpdatePositions(UpdateController):
                 self.pods, self.vehicles = UpdatePositions.parse_pods(data, self.zipcode_filter)
             else:
                 raise Exception('could not load any Zipcode data {0}'.format(data))
-        except Exception, err:
+        except Exception as err:
             log.exception('Exception: {0}'.format(err))
 
     def get_data(self):
-        '''
-        '''
+        """
+        """
         #return self.get_test_data()
         url = DIRECTORY_URL
         raw = urllib.urlopen(url)
@@ -69,7 +70,7 @@ class UpdatePositions(UpdateController):
 
     @classmethod
     def parse_pods(cls, locations, zip_filter=None):
-        '''
+        """
           "locations": [
           {
               "location_id": 95724,
@@ -94,7 +95,7 @@ class UpdatePositions(UpdateController):
               ],
               "vehicles": [ { ... }, {...}]
           }]
-        '''
+        """
         pods = []
         vehicles = []
         for l in locations:
@@ -112,7 +113,6 @@ class UpdatePositions(UpdateController):
             pod = ZipcarPod(id, l)
             pods.append(pod)
 
-
             # make vehicles
             #import pdb; pdb.set_trace()
             v = ZipcarVehicle.make_vehicles(id, l)
@@ -124,8 +124,8 @@ class UpdatePositions(UpdateController):
 
     @classmethod
     def update_zipcar_db(cls, db, pods, vehicles):
-        ''' NOTE: key parameter is being passed around, since that will eventually be needed for Zipcar
-        '''
+        """ NOTE: key parameter is being passed around, since that will eventually be needed for Zipcar
+        """
         session = None
         try:
             session = db.get_session()
@@ -161,7 +161,7 @@ class UpdatePositions(UpdateController):
             for v in vehicles:
                 v.update_position(session, v.lat, v.lon, v.street, v.city, v.state, v.zip, 1)
 
-        except Exception, err:
+        except Exception as err:
             log.exception('Exception: {0}'.format(err))
             pass
         finally:
@@ -169,8 +169,6 @@ class UpdatePositions(UpdateController):
                 # step 3: commit stuff...
                 session.commit()
                 session.flush()
-
-
 
 
 def main():

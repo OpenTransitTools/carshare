@@ -17,11 +17,12 @@ from ott.carshare.model.update_controller import UpdateController
 
 VEHICLES_URL="https://www.car2go.com/api/v2.1/vehicles"
 
+
 class UpdatePositions(UpdateController):
 
     def __init__(self, db, key, svc=VEHICLES_URL, loc='Portland', format='json'):
-        ''' call the car2go service, retrieve new positions, and update car position database
-        '''
+        """ call the car2go service, retrieve new positions, and update car position database
+        """
 
         # step 0: setup
         self.house_num_and_zip_re = re.compile('[0-9]*, 9[0-9]+')
@@ -58,14 +59,13 @@ class UpdatePositions(UpdateController):
         return ret_val
 
     def append_pos(self, session, vehicle):
-        ''' get vehicle from db, then update its position (or update timestamp if vehicle is parked)
-        '''
+        """ get vehicle from db, then update its position (or update timestamp if vehicle is parked)
+        """
         v = self.get_vehicle(session, vehicle)
         if v is not None:
             lat, lon = self.get_coord(vehicle)
             address, city, zip = self.get_address(vehicle)
             v.update_position(session, lat, lon, address, city, None, zip)
-
 
     def get_coord(self, vehicle):
         lat = None
@@ -80,8 +80,8 @@ class UpdatePositions(UpdateController):
         return lat,lon
 
     def get_address(self, vehicle):
-        ''' parse car2go's funky address string SE Lambert St 1683, 97202 Portland or Veterans Memorial Hwy, 97266 Portland
-        '''
+        """ parse car2go's funky address string SE Lambert St 1683, 97202 Portland or Veterans Memorial Hwy, 97266 Portland
+        """
         address = None
         city = None
         zipcode = None
@@ -101,14 +101,13 @@ class UpdatePositions(UpdateController):
                 address = "{0} {1}".format(house_num, street)
             else:
                 address = street
-        except Exception, err:
+        except Exception as err:
             log.info('Exception: {0}'.format(err))
 
         return address,city,zipcode
 
-
     def get_vehicle(self, session, vehicle):
-        ''' record from car2go service
+        """ record from car2go service
             {
               "address":"Nw 9th Ave 1155, 97209 Multnomah",
               "coordinates":[-122.68043,45.53125,0],
@@ -119,7 +118,7 @@ class UpdatePositions(UpdateController):
               "exterior":"GOOD",
               "interior":"GOOD"
             }
-        '''
+        """
         v=None
         try:
             # step 1: find vehicle in db
@@ -132,7 +131,7 @@ class UpdatePositions(UpdateController):
                 session.add(v)
 
             v.set_attributes(vehicle)
-        except Exception, err:
+        except Exception as err:
             log.exception('Exception: {0}'.format(err))
 
         return v

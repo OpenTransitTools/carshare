@@ -1,12 +1,13 @@
 import datetime
 from sqlalchemy.ext.declarative import declarative_base
 
+
 class _Base(object):
 
     @classmethod
     def get_attribute(cls, dict, id):
-        ''' safely get an attribute from a dict, returning None if that attribute is not in the dict
-        '''
+        """ safely get an attribute from a dict, returning None if that attribute is not in the dict
+        """
         ret_val = None
         try:
             ret_val = dict[id]
@@ -23,8 +24,8 @@ class _Base(object):
         return c
 
     def to_dict(self):
-        ''' convert a SQLAlchemy object into a dict that is serializable to JSON
-        ''' 
+        """ convert a SQLAlchemy object into a dict that is serializable to JSON
+        """ 
         ret_val = self.__dict__.copy()
 
         # the __dict__ on a SQLAlchemy object contains hidden crap that we delete from the class dict
@@ -42,8 +43,8 @@ class _Base(object):
 
     @classmethod
     def to_dict_list(cls, list):
-        ''' apply to_dict() to all elements in list, and return new / resulting list...
-        '''
+        """ apply to_dict() to all elements in list, and return new / resulting list...
+        """
         ret_val = []
         for l in list:
             if hasattr(l,"to_dict"):
@@ -53,10 +54,10 @@ class _Base(object):
 
     @classmethod
     def bulk_load(cls, engine, records, remove_old=True):
-        ''' load a bunch of records at once from a list (first clearing out the table).
+        """ load a bunch of records at once from a list (first clearing out the table).
             note that the records array has to be dict structures, ala
             http://docs.sqlalchemy.org/en/latest/core/connections.html#sqlalchemy.engine.Connection.execute
-        '''
+        """
         table = cls.__table__
         if remove_old:
             engine.execute(table.delete())
@@ -81,7 +82,6 @@ class _Base(object):
             # bit of recursion to hit sub classes
             for c in cls.__subclasses__():
                 c.set_geometry(is_geospatial)
-
 
 
 def get_session(self):

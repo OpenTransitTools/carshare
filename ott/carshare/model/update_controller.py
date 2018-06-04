@@ -1,7 +1,7 @@
-''' base class for calling update objects
+""" base class for calling update objects
     step 1: in all objects that you want to blindly call an update on should inherit from this class
     step 2: put the import to that class file in the method update_children() below
-'''
+"""
 
 
 class UpdateController(object):
@@ -14,8 +14,8 @@ class UpdateController(object):
 
     @classmethod
     def update_children(cls, db, args):
-        ''' update children
-        '''
+        """ update children
+        """
 
         # include all children here, so the __sublcasses__ reflection works
         import ott.carshare.model.zipcar.update_positions
@@ -24,8 +24,10 @@ class UpdateController(object):
         for child in UpdateController.__subclasses__():
             child.update(db, args)
 
+
 def main():
     UpdateController.update_children()
+
 
 if __name__ == '__main__':
     main()
