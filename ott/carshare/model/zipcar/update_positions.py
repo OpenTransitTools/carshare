@@ -12,10 +12,13 @@ from ott.carshare.model.position import Position
 from ott.carshare.model.zipcar.zipcar_pod import ZipcarPod
 from ott.carshare.model.zipcar.zipcar_vehicle import ZipcarVehicle
 
+# Service URLs 2018:
+# https://api.zipcar.com/partner-api/locations?lat=45.65&lng=-122.55&lat_delta=2.1&lng_delta=2.1&locale=en-US&apikey=<key>
+# https://api.zipcar.com/partner-api/locations/1214031054?locale=en-US&apikey=<key>
+
 # TODO add these to .config file
-DIRECTORY_URL  = "https://api.zipcar.com/v0/directory?country=US&embed=vehicles"
+DIRECTORY_URL = "https://api.zipcar.com/v0/directory?country=US&embed=vehicles"
 ZIPCODE_FILTER = "(^|\s)(97|98660)"
-LOCATION="Portland"
 
 
 class UpdatePositions(UpdateController):

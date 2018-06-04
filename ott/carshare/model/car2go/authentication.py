@@ -33,9 +33,7 @@ def run_example():
     print content
 
 
-# example client using httplib with headers
-#class SimpleOAuthClient(oauth.OAuthClient):
-class SimpleOAuthClient():
+class SimpleOAuthClient(object):
 
     def __init__(self, server, port=httplib.HTTP_PORT, request_token_url='', access_token_url='', authorization_url=''):
         self.server = server
@@ -151,5 +149,5 @@ def pause():
 
 
 if __name__ == '__main__':
-#    run_example()
+    #run_example()
     print 'Done.'
