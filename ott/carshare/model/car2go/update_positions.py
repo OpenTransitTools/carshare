@@ -9,6 +9,12 @@ from ott.carshare.model.car2go.car2go_vehicle import Car2GoVehicle
 from ott.carshare.model.position import Position
 from ott.carshare.model.update_controller import UpdateController
 
+# car2go 2018:
+# https://www.car2go.com/api/tou.htm
+# https://www.car2go.com/US/en/?loc=Portland&oauth_consumer_key=<key>
+
+# https://code.google.com/archive/p/car2go/
+
 # car2go API: https://code.google.com/p/car2go/wiki/index_v2_1
 # 
 # https://www.car2go.com/api/v2.1/locations?oauth_consumer_key=<key>&format=json
