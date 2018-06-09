@@ -1,6 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
+
 here = os.path.abspath(os.path.dirname(__file__))
 
 README = open(os.path.join(here, 'README.rst')).read()
@@ -17,8 +18,8 @@ requires = [
     'pillow',
     'simplejson',
     'geojson',
-    'geoalchemy2>=0.2.4',
-    'sqlalchemy>=0.9',
+    'geoalchemy2',
+    'sqlalchemy',
 ]
 
 dev_extras = []
@@ -29,10 +30,6 @@ extras_require = dict(
     dev=dev_extras,
     postgresql=postgresql_extras,
 )
-
-if sys.version_info[:2] <= (2, 6):
-    requires.append('argparse>=1.2.1')
-    extras_require['dev'].append('unittest2')
 
 setup(
     name='ott.carshare',
